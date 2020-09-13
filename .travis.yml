@@ -1,0 +1,16 @@
+branches: {only: [master, develop]}
+dist: xenial
+sudo: false
+language: python
+python:
+  - 3.8
+cache: pip
+
+matrix:
+  include:
+    - name: Coding style
+      install: pip install -r requirements-test.txt
+      script:
+        - black --check .
+        - flake8
+        - isort -c .
