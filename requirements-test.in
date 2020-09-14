@@ -1,0 +1,7 @@
+autopep8
+black
+flake8
+isort
+pytest
+pytest-django
+pytest-cov
