@@ -2,20 +2,29 @@ import re
 
 from lxml import etree
 
+from django_oikotie.enums import Case
 
-def object_to_etree(obj):
+
+def object_to_etree(obj, case=Case.PASCAL):
     name = None
     if hasattr(obj, "Meta") and hasattr(obj.Meta, "element_name"):
         name = obj.Meta.element_name
-    else:
+    elif case == Case.KEBAB:
         name = re.sub(r"(?<!^)(?=[A-Z])", "-", obj.__class__.__name__).lower()
+    else:
+        name = obj.__class__.__name__
+
     root = etree.Element(name)
     for key, val in obj.__dict__.items():
         if hasattr(val, "to_etree") and callable(getattr(val, "to_etree")):
-            el = val.to_etree()
+            el = val.to_etree(case)
             root.append(el)
         else:
-            el = etree.Element(key.replace("_", "-"))
+            if case == Case.KEBAB:
+                name = key.replace("_", "-")
+            else:
+                name = key.title().replace("_", "")
+            el = etree.Element(name)
             el.text = str(val)
             root.append(el)
     return root

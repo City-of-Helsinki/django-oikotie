@@ -4,8 +4,8 @@ from django_oikotie.utils import object_to_etree
 
 
 class BaseClass:
-    def to_etree(self):
-        return object_to_etree(self)
+    def to_etree(self, case):
+        return object_to_etree(self, case)
 
 
 @dataclass
@@ -25,9 +25,6 @@ class Address(BaseClass):
     street: str
     postal_code: str
     city: str
-
-    class Meta:
-        element_name = "address"
 
 
 @dataclass
