@@ -4,6 +4,7 @@ from enum import Enum
 class Case(Enum):
     PASCAL = 1
     KEBAB = 2
+    CAMEL = 3
 
 
 class ApartmentAction(Enum):

@@ -5,8 +5,7 @@ from xml.etree.ElementTree import ElementTree
 from django.conf import settings
 from lxml.etree import Element
 
-from django_oikotie.enums import ApartmentAction, Case
-from django_oikotie.utils import object_to_etree
+from django_oikotie.enums import ApartmentAction
 
 
 def get_session():
@@ -39,7 +38,7 @@ def create_housing_companies(housing_companies):
     filename = get_filename("HOUSINGCOMPANY")
     root = Element("housing-companies")
     for housing_company in housing_companies:
-        root.append(object_to_etree(housing_company, Case.KEBAB))
+        root.append(housing_company.to_etree())
     write_file(filename, root)
 
 
@@ -47,7 +46,7 @@ def create_apartments(apartments):
     filename = get_filename("APT")
     root = Element("Apartments")
     for apartment in apartments:
-        root.append(object_to_etree(apartment, Case.PASCAL))
+        root.append(apartment.to_etree())
     write_file(filename, root)
 
 
@@ -55,10 +54,8 @@ def update_apartments(apartments, action=ApartmentAction.UPDATE):
     filename = get_filename("UPDATEAPT")
     root = Element("Apartments")
     for apartment in apartments:
-        apartment_etree = object_to_etree(apartment, Case.PASCAL)
-        apartment_etree.set("action", action.value)
-        apartment_etree
-        root.append(apartment_etree)
+        apartment.action = action
+        root.append(apartment.to_etree())
     write_file(filename, root)
 
 
