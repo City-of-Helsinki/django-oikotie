@@ -12,32 +12,37 @@ class ApartmentAction(Enum):
     REMOVE = "remove"
 
 
+class Availability(Enum):
+    PRE_MARKETING = "ennakkomarkkinoinnissa"
+    FOR_SALE = "myynnissä"
+
+
 class ApartmentType(Enum):
-    KT = "Kerrostalo"
-    OT = "Omakotitalo"
-    RT = "Rivitalo"
-    PT = "Paritalo"
-    ET = "Erillistalo"
-    MO = "Mökki tai huvila"
-    LH = "Lomahuoneisto"
-    UL = "Loma-asunto ulkomailla"
-    LO = "Lomaosake"
-    OKTT = "Omakotitalotontti"
-    VT = "Vapaa-ajan tontti"
-    RTT = "Rivitalotontti"
-    TO = "Tontti"
-    AP = "Autopaikka"
-    AT = "Autotalli"
-    MAT = "Maatila"
-    MET = "Metsätila"
-    TOT = "Toimistotila"
-    LT = "Liiketila"
-    VART = "Varastotila"
-    RAV = "Ravintolatila"
-    NAY = "Näyttelytila"
-    HAR = "Harrastetila"
-    HUB = "Hub-tila"
-    TMUU = "Muu toimistotila"
-    TUT = "Tuotantotila"
-    PUUT = "Puutalo-osake"
-    LUHT = "Luhtitalo"
+    BLOCK_OF_FLATS = "KT"  # Kerrostalo
+    HOUSE = "OT"  # Omakotitalo
+    ROW_HOUSE = "RT"  # Rivitalo
+    DUPLEX = "PT"  # Paritalo
+    DETACHED_HOUSE = "ET"  # Erillistalo
+    COTTAGE_OR_VILLA = "MO"  # Mökki tai huvila
+    VACATION_APARTMENT = "LH"  # Lomahuoneisto
+    VACATION_APARTMENT_ABROAD = "UL"  # Loma-asunto ulkomailla
+    TIME_SHARE = "LO"  # Lomaosake
+    RESIDENTIAL_PLOT = "OKTT"  # Omakotitalotontti
+    LEISURE_PLOT = "VT"  # Vapaa-ajan tontti
+    ROW_HOUSE_PLOT = "RTT"  # Rivitalotontti
+    PLOT = "TO"  # Tontti
+    PARKING_SPACE = "AP"  # Autopaikka
+    GARAGE = "AT"  # Autotalli
+    FARM = "MAT"  # Maatila
+    FOREST_PROPERTY = "MET"  # Metsätila
+    OFFICE_PREMISES = "TOT"  # Toimistotila
+    BUSINESS_PREMISES = "LT"  # Liiketila
+    STORAGE_SPACE = "VART"  # Varastotila
+    RESTAURANT_PREMISES = "RAV"  # Ravintolatila
+    EXHIBITION_PREMISES = "NAY"  # Näyttelytila
+    HOBBY_PREMISES = "HAR"  # Harrastetila
+    HUB_PREMISES = "HUB"  # Hub-tila
+    OTHER_OFFICE_PREMISES = "TMUU"  # Muu toimistotila
+    PRODUCTION_PREMISES = "TUT"  # Tuotantotila
+    WOODEN_HOUSE_DEPARTMENT = "PUUT"  # Puutalo-osake
+    BALCONY_ACCESS_HOUSE = "LUHT"  # Luhtitalo

@@ -1,4 +1,6 @@
-from typing import TYPE_CHECKING
+import math
+from decimal import Decimal
+from typing import TYPE_CHECKING, Union
 
 from lxml import etree
 
@@ -25,6 +27,13 @@ def transform_name(name: str, case: Case) -> str:
         return parts[0] + "".join([p.title() for p in parts[1:]])
     else:  # PascalCase
         return name.title().replace("_", "")
+
+
+def truncate_to_n_decimal_places(value: Union[float, Decimal], n: int) -> float:
+    """
+    Truncate float or Decimal to n decimal places.
+    """
+    return math.floor(value * 10 ** n) / 10 ** n
 
 
 def yes_no_bool(value: bool) -> str:
