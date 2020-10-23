@@ -1,7 +1,11 @@
 autopep8
 black
+django~=2.2.0
+factory-boy
+faker
 flake8
 isort
+lxml
 pytest
 pytest-django
 pytest-cov
