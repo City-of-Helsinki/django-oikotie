@@ -46,3 +46,80 @@ class ApartmentType(Enum):
     PRODUCTION_PREMISES = "TUT"  # Tuotantotila
     WOODEN_HOUSE_DEPARTMENT = "PUUT"  # Puutalo-osake
     BALCONY_ACCESS_HOUSE = "LUHT"  # Luhtitalo
+
+
+class BuildingRightAmountType(Enum):
+    DENSITY_RATE = "e"
+    SQUARE_METERS = "m2"
+
+
+class EstateType(Enum):
+    REAL_ESTATE = "K"
+    CONDOMINIUM = "E"
+
+
+class LivingAreaType(Enum):
+    CONTROL = "CONTROL"
+    OFFICIAL = "OFFICIAL"
+    CERTIFIED = "CERTIFIED"
+    OTHER = "OTHER"
+
+
+class GeneralConditionLevel(Enum):
+    HIDDEN = 0
+    NEW = 1
+    EXCELLENT = 2
+    GOOD = 3
+    SATISFACTORY = 4
+    PASSABLE = 5
+    BAD = 6
+    UNKNOWN = 9
+
+
+class ModeOfHabitationType(Enum):
+    OWNED = "OM"
+    OWNERSHIP = "OO"
+    RIGHT_OF_OCCUPANCY = "AO"
+    TENANCY = "VU"
+
+
+class ModeOfHabitationRentType(Enum):
+    MAIN = "MAIN"
+    SUB = "SUB"
+
+
+class NewDevelopmentStatusChoices(Enum):
+    NONE_OR_HIDDEN = 0
+    UNDER_PLANNING = 1
+    PREMARKETING = 2
+    UNDER_CONSTRUCTION = 3
+    READY_TO_MOVE = 4
+
+
+class ParkingSpaceHeatingType(Enum):
+    NOT_DISPLAYED = 0
+    COLD = 1
+    WARM = 2
+
+
+class ParkingSpaceType(Enum):
+    NOT_DISPLAYED = 0
+    NONE = 1
+    PARKING_SPACE = 2
+    CARPORT = 3
+    GARAGE = 4
+    PARKING_GARAGE = 5
+
+
+class ShoreType(Enum):
+    OWN_SHORE = "OR"
+    WATER_RIGHTS = "OV"
+    SHORE_RIGHTS = "RO"
+    NO_SHORE = "ER"
+    UNKNOWN = "ET"
+    OTHER = "MUU"
+
+
+class Site(Enum):
+    OWNED = "O"
+    RENT = "V"
