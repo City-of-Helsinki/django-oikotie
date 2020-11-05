@@ -365,18 +365,18 @@ class FinancingOffer2(_FinancingOffer):
 @dataclass
 class FloorArea(XMLModel):
     unit: str
-    value: float
+    area: float
 
     class Meta:
         element_name = "FloorArea"
         case = Case.PASCAL
 
-    def format_value(self) -> str:
-        return str(truncate_to_n_decimal_places(self.value, n=2))
+    def format_area(self) -> str:
+        return str(truncate_to_n_decimal_places(self.area, n=2))
 
     def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, unit=self.unit)
-        element.text = self.format_value()
+        element.text = self.format_area()
         return element
 
 
@@ -437,18 +437,18 @@ class Lift(XMLModel):
 @dataclass
 class LivingArea(XMLModel):
     unit: str
-    value: float
+    area: float
 
     class Meta:
         element_name = "LivingArea"
         case = Case.PASCAL
 
-    def format_value(self) -> str:
-        return str(truncate_to_n_decimal_places(self.value, n=2))
+    def format_area(self) -> str:
+        return str(truncate_to_n_decimal_places(self.area, n=2))
 
     def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, unit=self.unit)
-        element.text = self.format_value()
+        element.text = self.format_area()
         return element
 
 

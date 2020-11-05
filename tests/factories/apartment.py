@@ -327,7 +327,7 @@ class FloorAreaFactory(factory.Factory):
         model = FloorArea
 
     unit = fuzzy.FuzzyText()
-    value = fuzzy.FuzzyFloat(0)
+    area = fuzzy.FuzzyFloat(0)
 
 
 class FloorLocationFactory(factory.Factory):
@@ -362,7 +362,7 @@ class LivingAreaFactory(factory.Factory):
         model = LivingArea
 
     unit = fuzzy.FuzzyText()
-    value = fuzzy.FuzzyFloat(0)
+    area = fuzzy.FuzzyFloat(0)
 
 
 class ModeOfHabitationFactory(factory.Factory):
