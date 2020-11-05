@@ -414,7 +414,7 @@ class GeneralCondition(XMLModel):
         case = Case.PASCAL
 
     def to_etree(self) -> etree._Element:
-        element = etree.Element(self.Meta.element_name, level=self.level.value)
+        element = etree.Element(self.Meta.element_name, level=str(self.level.value))
         element.text = self.description
         return element
 
@@ -601,9 +601,12 @@ class RentSecurityDeposit2(XMLModel):
         element_name = "RentSecurityDeposit2"
         case = Case.PASCAL
 
+    def format_value(self) -> str:
+        return str(truncate_to_n_decimal_places(self.value, n=2))
+
     def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, currency=self.currency)
-        element.text = str(self.value)
+        element.text = self.format_value()
         return element
 
 
@@ -1052,6 +1055,21 @@ class Apartment(XMLModel):
 
     def format_extra_visibility_start_date_time(self) -> str:
         return self.extra_visibility_start_date_time.strftime("%Y-%m-%dT%H:%M:%S")
+
+    def format_apartment_rent_income(self) -> str:
+        return str(truncate_to_n_decimal_places(self.apartment_rent_income, n=2))
+
+    def format_site_repurchase_price(self) -> str:
+        return str(truncate_to_n_decimal_places(self.site_repurchase_price, n=2))
+
+    def format_site_condominium_fee(self) -> str:
+        return str(truncate_to_n_decimal_places(self.site_condominium_fee, n=2))
+
+    def format_showing_date2(self) -> str:
+        return self.showing_date2.strftime("%d.%m.%Y")
+
+    def format_online_offer_highest_bid(self) -> str:
+        return str(truncate_to_n_decimal_places(self.online_offer_highest_bid, n=2))
 
     def format_time_of_completion(self) -> str:
         return self.time_of_completion.strftime("%d.%m.%Y")
