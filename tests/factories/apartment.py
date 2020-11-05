@@ -502,6 +502,19 @@ class YearOfBuildingFactory(factory.Factory):
     description = fuzzy.FuzzyText()
 
 
+class MinimalApartmentFactory(factory.Factory):
+    class Meta:
+        model = Apartment
+
+    type = fuzzy.FuzzyChoice([x for x in ApartmentType])
+    new_houses = fuzzy.FuzzyChoice([True, False])
+    key = fuzzy.FuzzyText()
+    vendor_identifier = fuzzy.FuzzyText()
+    mode_of_habitation = factory.SubFactory(ModeOfHabitationFactory)
+    street_address = fuzzy.FuzzyText()
+    city = factory.SubFactory(CityFactory)
+
+
 class ApartmentFactory(factory.Factory):
     class Meta:
         model = Apartment
