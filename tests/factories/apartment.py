@@ -327,7 +327,7 @@ class FloorAreaFactory(factory.Factory):
         model = FloorArea
 
     unit = fuzzy.FuzzyText()
-    value = fuzzy.FuzzyFloat(0)
+    area = fuzzy.FuzzyFloat(0)
 
 
 class FloorLocationFactory(factory.Factory):
@@ -362,7 +362,7 @@ class LivingAreaFactory(factory.Factory):
         model = LivingArea
 
     unit = fuzzy.FuzzyText()
-    value = fuzzy.FuzzyFloat(0)
+    area = fuzzy.FuzzyFloat(0)
 
 
 class ModeOfHabitationFactory(factory.Factory):
@@ -500,6 +500,19 @@ class YearOfBuildingFactory(factory.Factory):
 
     original = fuzzy.FuzzyInteger(0)
     description = fuzzy.FuzzyText()
+
+
+class MinimalApartmentFactory(factory.Factory):
+    class Meta:
+        model = Apartment
+
+    type = fuzzy.FuzzyChoice([x for x in ApartmentType])
+    new_houses = fuzzy.FuzzyChoice([True, False])
+    key = fuzzy.FuzzyText()
+    vendor_identifier = fuzzy.FuzzyText()
+    mode_of_habitation = factory.SubFactory(ModeOfHabitationFactory)
+    street_address = fuzzy.FuzzyText()
+    city = factory.SubFactory(CityFactory)
 
 
 class ApartmentFactory(factory.Factory):

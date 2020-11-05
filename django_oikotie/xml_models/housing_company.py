@@ -51,7 +51,7 @@ class Address(XMLModel):
     street: str
     postal_code: str
     city: str
-    region: Optional[str]
+    region: Optional[str] = None
 
     class Meta:
         element_name = "address"
@@ -82,10 +82,10 @@ class Builder(XMLModel):
 @dataclass
 class ConstructionDetails(XMLModel):
     construction_complete: bool
-    construction_company_name: Optional[str]
-    estimated_completion_time: Optional[str]
-    availability: Optional[Availability]
-    funding_type: Optional[str]
+    construction_company_name: Optional[str] = None
+    estimated_completion_time: Optional[str] = None
+    availability: Optional[Availability] = None
+    funding_type: Optional[str] = None
 
     class Meta:
         element_name = "construction-details"
@@ -111,8 +111,8 @@ class Coordinates(XMLModel):
 @dataclass
 class MoreInfo(XMLModel):
     url: str
-    link_text: Optional[str]
-    link_image_url: Optional[str]
+    link_text: Optional[str] = None
+    link_image_url: Optional[str] = None
 
     class Meta:
         element_name = "more-info"
@@ -159,19 +159,19 @@ class RealEstateAgent(XMLModel):
 class HousingCompany(XMLModel):
     key: str
     name: str
-    real_estate_code: Optional[str]
     real_estate_agent: RealEstateAgent
-    builder: Optional[List[Builder]]
     apartment: Apartment
-    presentation_text: Optional[str]
     address: Address
-    coordinates: Optional[Coordinates]
-    construction_details: Optional[ConstructionDetails]
-    pictures: Optional[List[Picture]]
-    city_plan_pictures: Optional[List[CityPlanPicture]]
-    property_development: Optional[PropertyDevelopment]
     publication_start_date: datetime
     publication_end_date: datetime
+    real_estate_code: Optional[str] = None
+    builder: Optional[List[Builder]] = None
+    presentation_text: Optional[str] = None
+    coordinates: Optional[Coordinates] = None
+    construction_details: Optional[ConstructionDetails] = None
+    pictures: Optional[List[Picture]] = None
+    city_plan_pictures: Optional[List[CityPlanPicture]] = None
+    property_development: Optional[PropertyDevelopment] = None
 
     class Meta:
         element_name = "housing-company"
