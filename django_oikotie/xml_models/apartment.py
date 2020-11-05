@@ -557,7 +557,7 @@ class PictureDescription(XMLModel):
 
 
 @dataclass
-class _ValueAttrModel(XMLModel):
+class _BoolAttrValueModel(XMLModel):
     value: bool
 
     class Meta:
@@ -569,26 +569,26 @@ class _ValueAttrModel(XMLModel):
 
 
 @dataclass
-class PromotionalOffer(_ValueAttrModel):
-    class Meta(_ValueAttrModel.Meta):
+class PromotionalOffer(_BoolAttrValueModel):
+    class Meta(_BoolAttrValueModel.Meta):
         element_name = "PromotionalOffer"
 
 
 @dataclass
-class Rented(_ValueAttrModel):
-    class Meta(_ValueAttrModel.Meta):
+class Rented(_BoolAttrValueModel):
+    class Meta(_BoolAttrValueModel.Meta):
         element_name = "Rented"
 
 
 @dataclass
-class RentFixedTerm(_ValueAttrModel):
-    class Meta(_ValueAttrModel.Meta):
+class RentFixedTerm(_BoolAttrValueModel):
+    class Meta(_BoolAttrValueModel.Meta):
         element_name = "RentFixedTerm"
 
 
 @dataclass
-class RentFurnished(_ValueAttrModel):
-    class Meta(_ValueAttrModel.Meta):
+class RentFurnished(_BoolAttrValueModel):
+    class Meta(_BoolAttrValueModel.Meta):
         element_name = "RentFurnished"
 
 
