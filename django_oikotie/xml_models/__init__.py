@@ -56,7 +56,9 @@ class XMLModel:
             err = f"{self.__class__.__name__}.Meta.case is not defined"
             raise ValueError(err)
 
-    def get_formatted_value(self, key) -> Union[str, list, "XMLModel", etree._Element]:
+    def get_formatted_value(
+        self, key: str
+    ) -> Union[str, list, "XMLModel", etree._Element]:
         format_function = getattr(self, f"format_{key}", None)
         if format_function and callable(format_function):
             # Class has format_<key> method which is expected to return
@@ -74,7 +76,7 @@ class XMLModel:
         else:
             return str(value)
 
-    def get_element_name(self, key):
+    def get_element_name(self, key: str) -> str:
         if key in getattr(self.Meta, "element_name_overrides", {}):
             return self.Meta.element_name_overrides[key]
 
@@ -83,7 +85,7 @@ class XMLModel:
 
         return transform_name(key, case)
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         root = etree.Element(self.Meta.element_name)
 
         for key, value in self.__dict__.items():

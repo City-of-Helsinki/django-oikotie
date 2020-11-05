@@ -36,10 +36,10 @@ class _Cost(XMLModel):
     class Meta:
         case = Case.PASCAL
 
-    def format_value(self):
+    def format_value(self) -> str:
         return str(truncate_to_n_decimal_places(self.value, n=2))
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, unit=self.unit)
         element.text = self.format_value()
         return element
@@ -147,10 +147,10 @@ class _Price(XMLModel):
     class Meta:
         case = Case.PASCAL
 
-    def format_value(self):
+    def format_value(self) -> str:
         return str(truncate_to_n_decimal_places(self.value, n=2))
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, currency=self.currency)
         element.text = self.format_value()
         return element
@@ -193,7 +193,7 @@ class Attachments(XMLModel):
         element_name = "Attachments"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, url=self.url)
         element.text = self.link_text
         return element
@@ -208,7 +208,7 @@ class Balcony(XMLModel):
         element_name = "Balcony"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, value=yes_no_bool(self.value))
         element.text = self.description
         return element
@@ -223,10 +223,10 @@ class BuildingRightsAmount(XMLModel):
         element_name = "BuildingRightsAmount"
         case = Case.PASCAL
 
-    def format_amount(self):
+    def format_amount(self) -> str:
         return str(truncate_to_n_decimal_places(self.amount, n=2))
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, type=self.type.value)
         element.text = self.format_amount()
         return element
@@ -256,7 +256,7 @@ class City(XMLModel):
         element_name = "City"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, id=str(self.id))
         element.text = self.value
         return element
@@ -271,7 +271,7 @@ class CityPlanPicture(XMLModel):
         element_name = "CityPlanPicture"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(f"{self.Meta.element_name}{self.index}")
         element.text = self.url
         return element
@@ -289,7 +289,7 @@ class DebtPayable(XMLModel):
         }
         attributes = ["value"]
 
-    def format_value(self):
+    def format_value(self) -> str:
         return yes_no_bool(self.value)
 
 
@@ -328,7 +328,7 @@ class EstateAgentSocialMedia(XMLModel):
         element_name = "EstateAgentSocialMedia"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, url=self.url)
         element.text = self.description
         return element
@@ -371,10 +371,10 @@ class FloorArea(XMLModel):
         element_name = "FloorArea"
         case = Case.PASCAL
 
-    def format_value(self):
+    def format_value(self) -> str:
         return str(truncate_to_n_decimal_places(self.value, n=2))
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, unit=self.unit)
         element.text = self.format_value()
         return element
@@ -392,7 +392,7 @@ class FloorLocation(XMLModel):
         element_name = "FloorLocation"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(
             self.Meta.element_name,
             high=yes_no_bool(self.high),
@@ -413,7 +413,7 @@ class GeneralCondition(XMLModel):
         element_name = "GeneralCondition"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, level=self.level.value)
         element.text = self.description
         return element
@@ -428,7 +428,7 @@ class Lift(XMLModel):
         element_name = "Lift"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, value=yes_no_bool(self.value))
         element.text = self.description
         return element
@@ -443,10 +443,10 @@ class LivingArea(XMLModel):
         element_name = "LivingArea"
         case = Case.PASCAL
 
-    def format_value(self):
+    def format_value(self) -> str:
         return str(truncate_to_n_decimal_places(self.value, n=2))
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, unit=self.unit)
         element.text = self.format_value()
         return element
@@ -490,7 +490,7 @@ class OnlineOfferLabel(XMLModel):
         element_name = "OnlineOfferLabel"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(
             self.Meta.element_name,
             backgroundColor=self.background_color,
@@ -511,7 +511,7 @@ class ParkingSpace(XMLModel):
         element_name = "ParkingSpace"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(
             self.Meta.element_name,
             type=str(self.type.value),
@@ -532,7 +532,7 @@ class Picture(XMLModel):
         element_name = "PictureX"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(
             self.Meta.element_name.replace("X", str(self.index)),
             isFloorPlan=yes_no_bool(self.is_floor_plan),
@@ -550,7 +550,7 @@ class PictureDescription(XMLModel):
         element_name = "PictureXDescription"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name.replace("X", str(self.index)))
         element.text = self.description
         return element
@@ -564,7 +564,7 @@ class _ValueAttrModel(XMLModel):
         case = Case.CAMEL
         attributes = ["value"]
 
-    def format_value(self):
+    def format_value(self) -> str:
         return yes_no_bool(self.value)
 
 
@@ -601,7 +601,7 @@ class RentSecurityDeposit2(XMLModel):
         element_name = "RentSecurityDeposit2"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, currency=self.currency)
         element.text = str(self.value)
         return element
@@ -617,7 +617,7 @@ class Sauna(XMLModel):
         element_name = "Sauna"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(
             self.Meta.element_name,
             own=yes_no_bool(self.own),
@@ -646,7 +646,7 @@ class ShowingDate1(XMLModel):
         element_name = "ShowingDate1"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(
             self.Meta.element_name,
             firstShowing=yes_no_bool(self.first_showing),
@@ -664,10 +664,10 @@ class SiteArea(XMLModel):
         element_name = "SiteArea"
         case = Case.PASCAL
 
-    def format_area(self):
+    def format_area(self) -> str:
         return "{:.2f}".format(truncate_to_n_decimal_places(self.area, n=2))
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(
             self.Meta.element_name,
             unit=self.unit,
@@ -679,18 +679,18 @@ class SiteArea(XMLModel):
 @dataclass
 class TotalArea(XMLModel):
     unit: str
-    min: int
-    max: int
     area: float
+    min: Optional[int]
+    max: Optional[int]
 
     class Meta:
         element_name = "TotalArea"
         case = Case.PASCAL
 
-    def format_area(self):
+    def format_area(self) -> str:
         return "{:.2f}".format(truncate_to_n_decimal_places(self.area, n=2))
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(
             self.Meta.element_name,
             unit=self.unit,
@@ -710,7 +710,7 @@ class YearOfBuilding(XMLModel):
         element_name = "YearOfBuilding"
         case = Case.PASCAL
 
-    def to_etree(self):
+    def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, original=str(self.original))
         element.text = self.description
         return element
@@ -1020,38 +1020,38 @@ class Apartment(XMLModel):
     def format_longitude(self) -> str:
         return "{:.5f}".format(truncate_to_n_decimal_places(self.longitude, n=5))
 
-    def format_has_terrace(self):
+    def format_has_terrace(self) -> str:
         return yes_no_bool(self.has_terrace)
 
-    def format_cellar(self):
+    def format_cellar(self) -> str:
         return yes_no_bool(self.cellar)
 
-    def format_residental_apartment_area(self):
+    def format_residental_apartment_area(self) -> str:
         return str(truncate_to_n_decimal_places(self.residental_apartment_area, n=2))
 
-    def format_office_area(self):
+    def format_office_area(self) -> str:
         return str(truncate_to_n_decimal_places(self.office_area, n=2))
 
-    def format_site_rent_contract_end_date(self):
+    def format_site_rent_contract_end_date(self) -> str:
         return self.site_rent_contract_end_date.strftime("%d.%m.%Y")
 
-    def format_share_of_debt_85(self):
+    def format_share_of_debt_85(self) -> str:
         return str(truncate_to_n_decimal_places(self.share_of_debt_85, n=2))
 
-    def format_share_of_debt_70(self):
+    def format_share_of_debt_70(self) -> str:
         return str(truncate_to_n_decimal_places(self.share_of_debt_70, n=2))
 
-    def format_date_when_available(self):
+    def format_date_when_available(self) -> str:
         return self.date_when_available.strftime("%d.%m.%Y")
 
-    def format_rent_fixed_term_start(self):
+    def format_rent_fixed_term_start(self) -> str:
         return self.rent_fixed_term_start.strftime("%d.%m.%Y")
 
-    def format_rent_fixed_term_end(self):
+    def format_rent_fixed_term_end(self) -> str:
         return self.rent_fixed_term_end.strftime("%d.%m.%Y")
 
-    def format_extra_visibility_start_date_time(self):
+    def format_extra_visibility_start_date_time(self) -> str:
         return self.extra_visibility_start_date_time.strftime("%Y-%m-%dT%H:%M:%S")
 
-    def format_time_of_completion(self):
+    def format_time_of_completion(self) -> str:
         return self.time_of_completion.strftime("%d.%m.%Y")
