@@ -994,7 +994,7 @@ class Apartment(XMLModel):
             "oikotie_id": "OikotieID",
             "real_estate_id": "RealEstateID",
         }
-        attributes = ["action", "type", "new_houses" "new_apartment_reserved"]
+        attributes = ["action", "type", "new_houses", "new_apartment_reserved"]
 
     def format_pictures(self) -> Generator[etree._Element, None, None]:
         for picture in self.pictures:
