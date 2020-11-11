@@ -371,12 +371,14 @@ def test__apartment__complete_xml_serialization():
     cpp1 = CityPlanPictureFactory(index=1)
     cpp2 = CityPlanPictureFactory(index=2)
     fl = FloorLocationFactory(low=False, high=False)
+    bal = BalconyFactory(value=False)
     la = LivingAreaFactory(area=123.4567)
     ta = TotalAreaFactory(area=123.4567)
     fa = FloorAreaFactory(area=123.4567)
     lift = LiftFactory(value=True)
     yob = YearOfBuildingFactory()
     bra = BuildingRightsAmountFactory(amount=123.4567)
+    gen = GeneralConditionFactory()
     sa = SiteAreaFactory(area=123.4567)
     hc = HeatingCostsFactory(value=123.4567)
     sc = SaunaChargeFactory(value=123.4567)
@@ -426,6 +428,7 @@ def test__apartment__complete_xml_serialization():
         picture_descriptions=[pd1, pd2],
         city_plan_pictures=[cpp1, cpp2],
         floor_location=fl,
+        balcony=bal,
         has_terrace=False,
         cellar=True,
         living_area=la,
@@ -436,6 +439,7 @@ def test__apartment__complete_xml_serialization():
         lift=lift,
         year_of_building=yob,
         building_rights_amount=bra,
+        general_condition=gen,
         site_rent_contract_end_date=date(2020, 1, 1),
         site_area=sa,
         heating_costs=hc,
@@ -529,7 +533,7 @@ def test__apartment__complete_xml_serialization():
         f"  <NumberOfRooms>{obj.number_of_rooms}</NumberOfRooms>\n"
         f"  <RoomTypes>{obj.room_types}</RoomTypes>\n"
         f"  <OtherSpaceDescription>{obj.other_space_description}</OtherSpaceDescription>\n"
-        f"  <Balcony>{obj.balcony}</Balcony>\n"
+        f'  <Balcony value="E">{bal.description}</Balcony>\n'
         f"  <HasTerrace>E</HasTerrace>\n"
         f"  <Terrace>{obj.terrace}</Terrace>\n"
         f"  <DirectionOfWindows>{obj.direction_of_windows}</DirectionOfWindows>\n"
@@ -577,7 +581,7 @@ def test__apartment__complete_xml_serialization():
         f"  <VentilationSystem>{obj.ventilation_system}</VentilationSystem>\n"
         f"  <OtherBuildings>{obj.other_buildings}</OtherBuildings>\n"
         f"  <MoreEstateInformation>{obj.more_estate_information}</MoreEstateInformation>\n"
-        f"  <GeneralCondition>{obj.general_condition}</GeneralCondition>\n"
+        f'  <GeneralCondition level="{gen.level.value}">{gen.description}</GeneralCondition>\n'
         f"  <ConditionInspection>{obj.condition_inspection}</ConditionInspection>\n"
         f"  <EstateNameAndNumber>{obj.estate_name_and_number}</EstateNameAndNumber>\n"
         f"  <Site>{obj.site.value}</Site>\n"

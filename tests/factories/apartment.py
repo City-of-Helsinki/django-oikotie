@@ -565,7 +565,7 @@ class ApartmentFactory(factory.Factory):
     number_of_rooms = fuzzy.FuzzyInteger(1, 5)
     room_types = fuzzy.FuzzyText()
     other_space_description = fuzzy.FuzzyText()
-    balcony = fuzzy.FuzzyText()
+    balcony = factory.SubFactory(BalconyFactory)
     has_terrace = fuzzy.FuzzyChoice([True, False])
     terrace = fuzzy.FuzzyText()
     direction_of_windows = fuzzy.FuzzyText()
@@ -589,7 +589,7 @@ class ApartmentFactory(factory.Factory):
     business_id = fuzzy.FuzzyText()
     disponent = fuzzy.FuzzyText()
     real_estate_management = fuzzy.FuzzyText()
-    number_of_apartments = fuzzy.FuzzyText()
+    number_of_apartments = fuzzy.FuzzyInteger(1, 999)
     lift = factory.SubFactory(LiftFactory)
 
     year_of_building = factory.SubFactory(YearOfBuildingFactory)
@@ -619,7 +619,7 @@ class ApartmentFactory(factory.Factory):
     other_buildings = fuzzy.FuzzyText()
     more_estate_information = fuzzy.FuzzyText()
 
-    general_condition = fuzzy.FuzzyText()
+    general_condition = factory.SubFactory(GeneralConditionFactory)
     condition_inspection = fuzzy.FuzzyText()
 
     estate_name_and_number = fuzzy.FuzzyText()

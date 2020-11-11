@@ -455,7 +455,7 @@ class LivingArea(XMLModel):
 @dataclass
 class ModeOfHabitation(XMLModel):
     type: ModeOfHabitationType
-    rent_type: ModeOfHabitationRentType
+    rent_type: Optional[ModeOfHabitationRentType] = None
 
     class Meta:
         element_name = "ModeOfHabitation"
@@ -764,7 +764,7 @@ class Apartment(XMLModel):
     number_of_rooms: Optional[int] = None
     room_types: Optional[str] = None
     other_space_description: Optional[str] = None
-    balcony: Optional[str] = None
+    balcony: Optional[Balcony] = None
     has_terrace: Optional[bool] = None
     terrace: Optional[str] = None
     direction_of_windows: Optional[str] = None
@@ -788,7 +788,7 @@ class Apartment(XMLModel):
     business_id: Optional[str] = None
     disponent: Optional[str] = None
     real_estate_management: Optional[str] = None
-    number_of_apartments: Optional[str] = None
+    number_of_apartments: Optional[int] = None
     lift: Optional[Lift] = None
 
     year_of_building: Optional[YearOfBuilding] = None
@@ -818,7 +818,7 @@ class Apartment(XMLModel):
     other_buildings: Optional[str] = None
     more_estate_information: Optional[str] = None
 
-    general_condition: Optional[str] = None
+    general_condition: Optional[GeneralCondition] = None
     condition_inspection: Optional[str] = None
 
     estate_name_and_number: Optional[str] = None
