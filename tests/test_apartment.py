@@ -15,7 +15,7 @@ from .factories.apartment import (
     CityFactory,
     CityPlanPictureFactory,
     DebtPayableFactory,
-    ElectricityConsumptionFactory,
+    ElectricityConsumptionChargeFactory,
     EstateAgentRatingFactory,
     EstateAgentSocialMediaFactory,
     EstateFactory,
@@ -55,6 +55,7 @@ from .factories.apartment import (
     ShoreFactory,
     ShowingDate1Factory,
     SiteAreaFactory,
+    SiteFactory,
     TotalAreaFactory,
     UnencumberedSalesPriceFactory,
     WaterFeeFactory,
@@ -76,7 +77,7 @@ def test__apartment__xml_serialization_does_not_crash():
         (CableTvChargeFactory, "CableTvCharge"),
         (CarParkingChargeFactory, "CarParkingCharge"),
         (ChargeFeeFactory, "ChargeFee"),
-        (ElectricityConsumptionFactory, "ElectricityConsumption"),
+        (ElectricityConsumptionChargeFactory, "ElectricityConsumptionCharge"),
         (FinancingFeeFactory, "FinancingFee"),
         (HeatingCostsFactory, "HeatingCosts"),
         (HousingCompanyFeeFactory, "HousingCompanyFee"),
@@ -325,6 +326,12 @@ def test__showing_date_1__xml_serialization():
     assert xml == '<ShowingDate1 firstShowing="K">01.01.2020</ShowingDate1>\n'
 
 
+def test__site__xml_serialization():
+    obj = SiteFactory()
+    xml = obj_to_xml_str(obj)
+    assert xml == f'<Site type="{obj.type.value}"/>\n'
+
+
 def test__site_area__xml_serialization():
     obj = SiteAreaFactory(area=123.4567)
     xml = obj_to_xml_str(obj)
@@ -386,7 +393,7 @@ def test__apartment__complete_xml_serialization():
     ff = FinancingFeeFactory(value=123.4567)
     mf = MaintenanceFeeFactory(value=123.4567)
     wf = WaterFeeFactory(value=123.4567)
-    ec = ElectricityConsumptionFactory(value=123.4567)
+    ec = ElectricityConsumptionChargeFactory(value=123.4567)
     ctc = CableTvChargeFactory(value=123.4567)
     cf = ChargeFeeFactory(value=123.4567)
     cpc = CarParkingChargeFactory(value=123.4567)
@@ -448,7 +455,7 @@ def test__apartment__complete_xml_serialization():
         financing_fee=ff,
         maintenance_fee=mf,
         water_fee=wf,
-        electricity_consumption=ec,
+        electricity_consumption_charge=ec,
         cable_tv_charge=ctc,
         charge_fee=cf,
         car_parking_charge=cpc,
@@ -525,10 +532,10 @@ def test__apartment__complete_xml_serialization():
         f"  <Picture2Description>{pd2.description}</Picture2Description>\n"
         f"  <CityPlanPicture1>{cpp1.url}</CityPlanPicture1>\n"
         f"  <CityPlanPicture2>{cpp2.url}</CityPlanPicture2>\n"
-        f"  <VirtualPresentationUrl>{obj.virtual_presentation_url}</VirtualPresentationUrl>\n"
+        f"  <VirtualPresentation>{obj.virtual_presentation}</VirtualPresentation>\n"
         f"  <VideoPresentationUrl>{obj.video_presentation_url}</VideoPresentationUrl>\n"
-        f"  <ListingBackgroundImageUrl>{obj.listing_background_image_url}</ListingBackgroundImageUrl>\n"
-        f"  <ListingBackgroundColorHex>{obj.listing_background_color_hex}</ListingBackgroundColorHex>\n"
+        f"  <ListingBackgroundImage>{obj.listing_background_image}</ListingBackgroundImage>\n"
+        f"  <ListingBackgroundColor>{obj.listing_background_color}</ListingBackgroundColor>\n"
         f'  <FloorLocation high="E" low="E" number="{fl.number}" count="{fl.count}">{fl.description}</FloorLocation>\n'
         f"  <NumberOfRooms>{obj.number_of_rooms}</NumberOfRooms>\n"
         f"  <RoomTypes>{obj.room_types}</RoomTypes>\n"
@@ -584,7 +591,7 @@ def test__apartment__complete_xml_serialization():
         f'  <GeneralCondition level="{gen.level.value}">{gen.description}</GeneralCondition>\n'
         f"  <ConditionInspection>{obj.condition_inspection}</ConditionInspection>\n"
         f"  <EstateNameAndNumber>{obj.estate_name_and_number}</EstateNameAndNumber>\n"
-        f"  <Site>{obj.site.value}</Site>\n"
+        f'  <Site type="{obj.site.type.value}"/>\n'
         f"  <SiteRent>{obj.site_rent}</SiteRent>\n"
         f"  <SiteRentContractEndDate>01.01.2020</SiteRentContractEndDate>\n"
         f'  <SiteArea unit="{sa.unit}">123.45</SiteArea>\n'
@@ -607,7 +614,8 @@ def test__apartment__complete_xml_serialization():
         f'  <MaintenanceFee unit="{mf.unit}">123.45</MaintenanceFee>\n'
         f'  <WaterFee unit="{wf.unit}">123.45</WaterFee>\n'
         f"  <WaterFeeExplanation>{obj.water_fee_explanation}</WaterFeeExplanation>\n"
-        f'  <ElectricityConsumption unit="{ec.unit}">123.45</ElectricityConsumption>\n'
+        f"  <ElectricityConsumption>{obj.electricity_consumption}</ElectricityConsumption>\n"
+        f'  <ElectricityConsumptionCharge unit="{ec.unit}">123.45</ElectricityConsumptionCharge>\n'
         f'  <CableTvCharge unit="{ctc.unit}">123.45</CableTvCharge>\n'
         f"  <RoadCosts>{obj.road_costs}</RoadCosts>\n"
         f"  <OtherFees>{obj.other_fees}</OtherFees>\n"

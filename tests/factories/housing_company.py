@@ -27,7 +27,7 @@ class AddressFactory(factory.Factory):
         model = Address
 
     street = fuzzy.FuzzyText()
-    postal_code = fuzzy.FuzzyText()
+    postal_code = fuzzy.FuzzyText(length=6)
     city = fuzzy.FuzzyText()
     region = fuzzy.FuzzyText()
 
