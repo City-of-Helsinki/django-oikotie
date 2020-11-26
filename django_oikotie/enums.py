@@ -120,6 +120,6 @@ class ShoreType(Enum):
     OTHER = "MUU"
 
 
-class Site(Enum):
+class SiteType(Enum):
     OWNED = "O"
     RENT = "V"

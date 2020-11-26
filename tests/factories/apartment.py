@@ -15,7 +15,7 @@ from django_oikotie.enums import (
     ParkingSpaceHeatingType,
     ParkingSpaceType,
     ShoreType,
-    Site,
+    SiteType,
 )
 from django_oikotie.xml_models.apartment import (
     Apartment,
@@ -29,7 +29,7 @@ from django_oikotie.xml_models.apartment import (
     City,
     CityPlanPicture,
     DebtPayable,
-    ElectricityConsumption,
+    ElectricityConsumptionCharge,
     Estate,
     EstateAgentRating,
     EstateAgentSocialMedia,
@@ -67,6 +67,7 @@ from django_oikotie.xml_models.apartment import (
     SaunaCharge,
     Shore,
     ShowingDate1,
+    Site,
     SiteArea,
     TotalArea,
     UnencumberedSalesPrice,
@@ -99,9 +100,9 @@ class ChargeFeeFactory(factory.Factory):
     unit = fuzzy.FuzzyText()
 
 
-class ElectricityConsumptionFactory(factory.Factory):
+class ElectricityConsumptionChargeFactory(factory.Factory):
     class Meta:
-        model = ElectricityConsumption
+        model = ElectricityConsumptionCharge
 
     value = fuzzy.FuzzyDecimal(0, 100)
     unit = fuzzy.FuzzyText()
@@ -476,6 +477,13 @@ class ShowingDate1Factory(factory.Factory):
     first_showing = fuzzy.FuzzyChoice([True, False])
 
 
+class SiteFactory(factory.Factory):
+    class Meta:
+        model = Site
+
+    type = fuzzy.FuzzyChoice([x for x in SiteType])
+
+
 class SiteAreaFactory(factory.Factory):
     class Meta:
         model = SiteArea
@@ -556,10 +564,10 @@ class ApartmentFactory(factory.Factory):
     city_plan_pictures = factory.List(
         [factory.SubFactory(CityPlanPictureFactory) for _ in range(2)]
     )
-    virtual_presentation_url = fuzzy.FuzzyText()
+    virtual_presentation = fuzzy.FuzzyText()
     video_presentation_url = fuzzy.FuzzyText()
-    listing_background_image_url = fuzzy.FuzzyText()
-    listing_background_color_hex = fuzzy.FuzzyText()
+    listing_background_image = fuzzy.FuzzyText()
+    listing_background_color = fuzzy.FuzzyText()
 
     floor_location = factory.SubFactory(FloorLocationFactory)
     number_of_rooms = fuzzy.FuzzyInteger(1, 5)
@@ -623,7 +631,7 @@ class ApartmentFactory(factory.Factory):
     condition_inspection = fuzzy.FuzzyText()
 
     estate_name_and_number = fuzzy.FuzzyText()
-    site = fuzzy.FuzzyChoice([x for x in Site])
+    site = factory.SubFactory(SiteFactory)
     site_rent = fuzzy.FuzzyText()
     site_rent_contract_end_date = fuzzy.FuzzyDate(timezone.now().date())
     site_area = factory.SubFactory(SiteAreaFactory)
@@ -647,7 +655,10 @@ class ApartmentFactory(factory.Factory):
     maintenance_fee = factory.SubFactory(MaintenanceFeeFactory)
     water_fee = factory.SubFactory(WaterFeeFactory)
     water_fee_explanation = fuzzy.FuzzyText()
-    electricity_consumption = factory.SubFactory(ElectricityConsumptionFactory)
+    electricity_consumption = fuzzy.FuzzyText()
+    electricity_consumption_charge = factory.SubFactory(
+        ElectricityConsumptionChargeFactory
+    )
     cable_tv_charge = factory.SubFactory(CableTvChargeFactory)
     road_costs = fuzzy.FuzzyText()
     other_fees = fuzzy.FuzzyText()

@@ -19,7 +19,7 @@ from ..enums import (
     ParkingSpaceHeatingType,
     ParkingSpaceType,
     ShoreType,
-    Site,
+    SiteType,
 )
 from ..utils import truncate_to_n_decimal_places, yes_no_bool
 from . import XMLModel
@@ -64,9 +64,9 @@ class ChargeFee(_Cost):
 
 
 @dataclass
-class ElectricityConsumption(_Cost):
+class ElectricityConsumptionCharge(_Cost):
     class Meta(_Cost.Meta):
-        element_name = "ElectricityConsumption"
+        element_name = "ElectricityConsumptionCharge"
 
 
 @dataclass
@@ -382,23 +382,29 @@ class FloorArea(XMLModel):
 
 @dataclass
 class FloorLocation(XMLModel):
-    high: bool
-    low: bool
-    number: int
-    count: int
-    description: str
+    high: Optional[bool] = None
+    low: Optional[bool] = None
+    number: Optional[int] = None
+    count: Optional[int] = None
+    description: Optional[str] = None
 
     class Meta:
         element_name = "FloorLocation"
         case = Case.PASCAL
 
     def to_etree(self) -> etree._Element:
+        kwargs = {}
+        if self.high is not None:
+            kwargs["high"] = yes_no_bool(self.high)
+        if self.low is not None:
+            kwargs["low"] = yes_no_bool(self.low)
+        if self.number is not None:
+            kwargs["number"] = str(self.number)
+        if self.count is not None:
+            kwargs["count"] = str(self.count)
         element = etree.Element(
             self.Meta.element_name,
-            high=yes_no_bool(self.high),
-            low=yes_no_bool(self.low),
-            number=str(self.number),
-            count=str(self.count),
+            **kwargs,
         )
         element.text = self.description
         return element
@@ -631,6 +637,16 @@ class Sauna(XMLModel):
 
 
 @dataclass
+class Site(XMLModel):
+    type: SiteType
+
+    class Meta:
+        element_name = "Site"
+        case = Case.CAMEL
+        attributes = ["type"]
+
+
+@dataclass
 class Shore(XMLModel):
     type: ShoreType
 
@@ -755,10 +771,10 @@ class Apartment(XMLModel):
     picture_gallery_promotion_url: Optional[str] = None
     picture_descriptions: Optional[List[PictureDescription]] = None
     city_plan_pictures: Optional[List[CityPlanPicture]] = None
-    virtual_presentation_url: Optional[str] = None
+    virtual_presentation: Optional[str] = None
     video_presentation_url: Optional[str] = None
-    listing_background_image_url: Optional[str] = None
-    listing_background_color_hex: Optional[str] = None
+    listing_background_image: Optional[str] = None
+    listing_background_color: Optional[str] = None
 
     floor_location: Optional[FloorLocation] = None
     number_of_rooms: Optional[int] = None
@@ -846,7 +862,8 @@ class Apartment(XMLModel):
     maintenance_fee: Optional[MaintenanceFee] = None
     water_fee: Optional[WaterFee] = None
     water_fee_explanation: Optional[str] = None
-    electricity_consumption: Optional[ElectricityConsumption] = None
+    electricity_consumption: Optional[str] = None
+    electricity_consumption_charge: Optional[ElectricityConsumptionCharge] = None
     cable_tv_charge: Optional[CableTvCharge] = None
     road_costs: Optional[str] = None
     other_fees: Optional[str] = None

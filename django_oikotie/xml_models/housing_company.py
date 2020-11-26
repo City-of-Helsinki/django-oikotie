@@ -14,15 +14,22 @@ from . import XMLModel
 
 @dataclass
 class _BasePicture(XMLModel):
-    timestamp: datetime
     image_url: str
+    timestamp: Optional[datetime] = None
 
     def format_timestamp(self) -> str:
-        return self.timestamp.strftime("%Y%m%d%H%M%S")
+        if self.timestamp:
+            return self.timestamp.strftime("%Y%m%d%H%M%S")
 
     def to_etree(self) -> etree._Element:
+        kwargs = {}
+
+        timestamp_formatted = self.format_timestamp()
+        if timestamp_formatted:
+            kwargs["timestamp"] = timestamp_formatted
+
         element = etree.Element(
-            self.Meta.element_name, timestamp=self.format_timestamp()
+            self.Meta.element_name, **kwargs
         )
         element.text = self.image_url
         return element
