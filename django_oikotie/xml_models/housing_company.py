@@ -31,8 +31,11 @@ class _BasePicture(XMLModel):
         element = etree.Element(
             self.Meta.element_name, **kwargs
         )
-        element.text = self.image_url
+        element.text = self.format_image_url()
         return element
+
+    def format_image_url(self) -> str:
+        return self.image_url[:200]
 
 
 @dataclass
@@ -63,6 +66,18 @@ class Address(XMLModel):
     class Meta:
         element_name = "address"
         case = Case.KEBAB
+
+    def format_street(self) -> str:
+        return self.street[:100]
+
+    def format_postal_code(self) -> str:
+        return self.postal_code[:6]
+
+    def format_city(self) -> str:
+        return self.city[:50]
+
+    def format_region(self) -> str:
+        return self.region[:100]
 
 
 @dataclass
@@ -98,6 +113,9 @@ class ConstructionDetails(XMLModel):
         element_name = "construction-details"
         case = Case.KEBAB
 
+    def format_construction_company_name(self) -> str:
+        return self.construction_company_name[:100]
+
 
 @dataclass
 class Coordinates(XMLModel):
@@ -126,6 +144,15 @@ class MoreInfo(XMLModel):
         case = Case.KEBAB
         attributes = ["url"]
 
+    def format_url(self) -> str:
+        return self.url[:200]
+
+    def format_link_text(self) -> str:
+        return self.link_text[:50]
+
+    def format_link_image_url(self) -> str:
+        return self.link_image_url[:200]
+
 
 @dataclass
 class VirtualPresentation(XMLModel):
@@ -140,6 +167,12 @@ class VirtualPresentation(XMLModel):
         element = etree.Element(self.Meta.element_name, url=self.url)
         element.text = self.link_text
         return element
+
+    def format_url(self) -> str:
+        return self.url[:200]
+
+    def format_link_text(self) -> str:
+        return self.link_text[:50]
 
 
 @dataclass
@@ -183,6 +216,18 @@ class HousingCompany(XMLModel):
     class Meta:
         element_name = "housing-company"
         case = Case.KEBAB
+
+    def format_key(self) -> str:
+        return self.key[:30]
+
+    def format_name(self) -> str:
+        return self.name[:100]
+
+    def format_real_estate_code(self) -> str:
+        return self.real_estate_code[:200]
+
+    def format_presentation_text(self) -> str:
+        return self.presentation_text[:10000]
 
     def _format_publication_date(self, name: str, value: datetime) -> etree._Element:
         element = etree.Element(name)

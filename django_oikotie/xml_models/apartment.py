@@ -210,8 +210,11 @@ class Balcony(XMLModel):
 
     def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, value=yes_no_bool(self.value))
-        element.text = self.description
+        element.text = self.format_description()
         return element
+
+    def format_description(self) -> str:
+        return self.description[:300]
 
 
 @dataclass
@@ -246,6 +249,12 @@ class CampaignLink(XMLModel):
         }
         attributes = ["target_url", "picture_url"]
 
+    def format_target_url(self) -> str:
+        return self.target_url[:500]
+
+    def format_picture_url(self) -> str:
+        return self.picture_url[:500]
+
 
 @dataclass
 class City(XMLModel):
@@ -258,8 +267,11 @@ class City(XMLModel):
 
     def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, id=str(self.id))
-        element.text = self.value
+        element.text = self.format_value()
         return element
+
+    def format_value(self) -> str:
+        return self.value[:50]
 
 
 @dataclass
@@ -273,8 +285,11 @@ class CityPlanPicture(XMLModel):
 
     def to_etree(self) -> etree._Element:
         element = etree.Element(f"{self.Meta.element_name}{self.index}")
-        element.text = self.url
+        element.text = self.format_url()
         return element
+
+    def format_url(self) -> str:
+        return self.url[:300]
 
 
 @dataclass
@@ -330,8 +345,11 @@ class EstateAgentSocialMedia(XMLModel):
 
     def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, url=self.url)
-        element.text = self.description
+        element.text = self.format_description()
         return element
+
+    def format_description(self) -> str:
+        return self.description[:200]
 
 
 @dataclass
@@ -406,8 +424,11 @@ class FloorLocation(XMLModel):
             self.Meta.element_name,
             **kwargs,
         )
-        element.text = self.description
+        element.text = self.format_description()
         return element
+
+    def format_description(self) -> str:
+        return self.description[:50]
 
 
 @dataclass
@@ -421,8 +442,11 @@ class GeneralCondition(XMLModel):
 
     def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, level=str(self.level.value))
-        element.text = self.description
+        element.text = self.format_description()
         return element
+
+    def format_description(self) -> str:
+        return self.description[:500]
 
 
 @dataclass
@@ -436,8 +460,11 @@ class Lift(XMLModel):
 
     def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, value=yes_no_bool(self.value))
-        element.text = self.description
+        element.text = self.format_description()
         return element
+
+    def format_description(self) -> str:
+        return self.description[:50]
 
 
 @dataclass
@@ -502,8 +529,11 @@ class OnlineOfferLabel(XMLModel):
             backgroundColor=self.background_color,
             textColor=self.text_color,
         )
-        element.text = self.text_value
+        element.text = self.format_text_value()
         return element
+
+    def format_text_value(self) -> str:
+        return self.text_value[:50]
 
 
 @dataclass
@@ -524,8 +554,11 @@ class ParkingSpace(XMLModel):
             heated=str(self.heated.value),
             electricityOutlet=yes_no_bool(self.electricity_outlet),
         )
-        element.text = self.text_value
+        element.text = self.format_text_value()
         return element
+
+    def format_text_value(self) -> str:
+        return self.text_value[:200]
 
 
 @dataclass
@@ -543,8 +576,11 @@ class Picture(XMLModel):
             self.Meta.element_name.replace("X", str(self.index)),
             isFloorPlan=yes_no_bool(self.is_floor_plan),
         )
-        element.text = self.url
+        element.text = self.format_url()
         return element
+
+    def format_url(self) -> str:
+        return self.url[:300]
 
 
 @dataclass
@@ -558,8 +594,11 @@ class PictureDescription(XMLModel):
 
     def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name.replace("X", str(self.index)))
-        element.text = self.description
+        element.text = self.format_description()
         return element
+
+    def format_description(self) -> str:
+        return self.description[:200]
 
 
 @dataclass
@@ -632,8 +671,11 @@ class Sauna(XMLModel):
             own=yes_no_bool(self.own),
             common=yes_no_bool(self.common),
         )
-        element.text = self.description
+        element.text = self.format_description()
         return element
+
+    def format_description(self) -> str:
+        return self.description[:50]
 
 
 @dataclass
@@ -731,8 +773,11 @@ class YearOfBuilding(XMLModel):
 
     def to_etree(self) -> etree._Element:
         element = etree.Element(self.Meta.element_name, original=str(self.original))
-        element.text = self.description
+        element.text = self.format_description()
         return element
+
+    def format_description(self) -> str:
+        return self.description[:500]
 
 
 @dataclass
@@ -1013,6 +1058,423 @@ class Apartment(XMLModel):
             "real_estate_id": "RealEstateID",
         }
         attributes = ["action", "type", "new_houses", "new_apartment_reserved"]
+
+    def format_key(self) -> str:
+        return self.key[:30]
+
+    def format_vendor_identifier(self) -> str:
+        return self.vendor_identifier[:40]
+
+    def format_mode_of_financing(self) -> str:
+        return self.mode_of_financing[:400]
+
+    def format_apartment_city_plan_id(self) -> str:
+        return self.apartment_city_plan_id[:20]
+
+    def format_street_address(self) -> str:
+        return self.street_address[:100]
+
+    def format_postal_code(self) -> str:
+        return self.postal_code[:6]
+
+    def format_other_post_code(self) -> str:
+        return self.other_post_code[:6]
+
+    def format_post_office(self) -> str:
+        return self.post_office[:100]
+
+    def format_region(self) -> str:
+        return self.region[:100]
+
+    def format_country(self) -> str:
+        return self.country[:50]
+
+    def format_oikotie_id(self) -> str:
+        return self.oikotie_id[:30]
+
+    def format_title(self) -> str:
+        return self.title[:150]
+
+    def format_description(self) -> str:
+        return self.description[:2000]
+
+    def format_supplementary_information(self) -> str:
+        return self.supplementary_information[:2000]
+
+    def format_direction(self) -> str:
+        return self.direction[:100]
+
+    def format_picture_gallery_promotion(self) -> str:
+        return self.picture_gallery_promotion[:300]
+
+    def format_picture_gallery_promotion_url(self) -> str:
+        return self.picture_gallery_promotion_url[:300]
+
+    def format_virtual_presentation(self) -> str:
+        return self.virtual_presentation[:200]
+
+    def format_video_presentation_url(self) -> str:
+        return self.video_presentation_url[:300]
+
+    def format_listing_background_image(self) -> str:
+        return self.listing_background_image[:300]
+
+    def format_room_types(self) -> str:
+        return self.room_types[:200]
+
+    def format_other_space_description(self) -> str:
+        return self.other_space_description[:500]
+
+    def format_terrace(self) -> str:
+        return self.terrace[:500]
+
+    def format_direction_of_windows(self) -> str:
+        return self.direction_of_windows[:100]
+
+    def format_view(self) -> str:
+        return self.view[:100]
+
+    def format_estate_area(self) -> str:
+        return self.estate_area[:500]
+
+    def format_forest_amount(self) -> str:
+        return self.forest_amount[:500]
+
+    def format_land_area(self) -> str:
+        return self.land_area[:500]
+
+    def format_real_estate_id(self) -> str:
+        return self.real_estate_id[:30]
+
+    def format_real_estate_code(self) -> str:
+        return self.real_estate_code[:50]
+
+    def format_housing_company_name(self) -> str:
+        return self.housing_company_name[:100]
+
+    def format_housing_company_key(self) -> str:
+        return self.housing_company_key[:30]
+
+    def format_business_id(self) -> str:
+        return self.business_id[:12]
+
+    def format_disponent(self) -> str:
+        return self.disponent[:100]
+
+    def format_real_estate_management(self) -> str:
+        return self.real_estate_management[:50]
+
+    def format_basic_renovations(self) -> str:
+        return self.basic_renovations[:2000]
+
+    def format_renovation_year_facade(self) -> str:
+        return self.renovation_year_facade[:9]
+
+    def format_renovation_year_roof(self) -> str:
+        return self.renovation_year_roof[:9]
+
+    def format_renovation_year_plumbing(self) -> str:
+        return self.renovation_year_plumbing[:9]
+
+    def format_renovation_year_bathrooms(self) -> str:
+        return self.renovation_year_bathrooms[:9]
+
+    def format_future_renovations(self) -> str:
+        return self.future_renovations[:2000]
+
+    def format_future_renovation_year_facade(self) -> str:
+        return self.future_renovation_year_facade[:9]
+
+    def format_future_renovation_year_roof(self) -> str:
+        return self.future_renovation_year_roof[:9]
+
+    def format_future_renovation_year_plumbing(self) -> str:
+        return self.future_renovation_year_plumbing[:9]
+
+    def format_future_renovation_year_bathrooms(self) -> str:
+        return self.future_renovation_year_bathrooms[:9]
+
+    def format_heating(self) -> str:
+        return self.heating[:200]
+
+    def format_roof_type(self) -> str:
+        return self.roof_type[:200]
+
+    def format_building_rights(self) -> str:
+        return self.building_rights[:200]
+
+    def format_sanitation(self) -> str:
+        return self.sanitation[:300]
+
+    def format_water_and_sewage(self) -> str:
+        return self.water_and_sewage[:300]
+
+    def format_sewer_system(self) -> str:
+        return self.sewer_system[:300]
+
+    def format_use_of_water(self) -> str:
+        return self.use_of_water[:300]
+
+    def format_ventilation_system(self) -> str:
+        return self.ventilation_system[:300]
+
+    def format_other_buildings(self) -> str:
+        return self.other_buildings[:500]
+
+    def format_more_estate_information(self) -> str:
+        return self.more_estate_information[:2000]
+
+    def format_condition_inspection(self) -> str:
+        return self.condition_inspection[:500]
+
+    def format_estate_name_and_number(self) -> str:
+        return self.estate_name_and_number[:500]
+
+    def format_site_rent(self) -> str:
+        return self.site_rent[:50]
+
+    def format_area_description(self) -> str:
+        return self.area_description[:500]
+
+    def format_shores_description(self) -> str:
+        return self.shores_description[:300]
+
+    def format_shore_direction(self) -> str:
+        return self.shore_direction[:200]
+
+    def format_shore_length(self) -> str:
+        return self.shore_length[:200]
+
+    def format_waters_description(self) -> str:
+        return self.waters_description[:300]
+
+    def format_building_plan_information(self) -> str:
+        return self.building_plan_information[:200]
+
+    def format_building_plan_situation(self) -> str:
+        return self.building_plan_situation[:100]
+
+    def format_grounds(self) -> str:
+        return self.grounds[:200]
+
+    def format_yard_description(self) -> str:
+        return self.yard_description[:500]
+
+    def format_yard_direction(self) -> str:
+        return self.yard_direction[:200]
+
+    def format_estate_tax(self) -> str:
+        return self.estate_tax[:30]
+
+    def format_water_fee_explanation(self) -> str:
+        return self.water_fee_explanation[:400]
+
+    def format_electricity_consumption(self) -> str:
+        return self.electricity_consumption[:200]
+
+    def format_other_fees(self) -> str:
+        return self.other_fees[:2000]
+
+    def format_building_material(self) -> str:
+        return self.building_material[:200]
+
+    def format_foundation(self) -> str:
+        return self.foundation[:200]
+
+    def format_wall_construction(self) -> str:
+        return self.wall_construction[:200]
+
+    def format_roof_material(self) -> str:
+        return self.roof_material[:200]
+
+    def format_floor(self) -> str:
+        return self.floor[:400]
+
+    def format_bedroom_floor(self) -> str:
+        return self.bedroom_floor[:400]
+
+    def format_kitchen_floor(self) -> str:
+        return self.kitchen_floor[:400]
+
+    def format_living_room_floor(self) -> str:
+        return self.living_room_floor[:400]
+
+    def format_bathroom_floor(self) -> str:
+        return self.bathroom_floor[:400]
+
+    def format_bedroom_wall(self) -> str:
+        return self.bedroom_wall[:200]
+
+    def format_kitchen_wall(self) -> str:
+        return self.kitchen_wall[:200]
+
+    def format_living_room_wall(self) -> str:
+        return self.living_room_wall[:200]
+
+    def format_bathroom_wall(self) -> str:
+        return self.bathroom_wall[:200]
+
+    def format_other_rooms_materials(self) -> str:
+        return self.other_rooms_materials[:400]
+
+    def format_kitchen_appliances(self) -> str:
+        return self.kitchen_appliances[:2000]
+
+    def format_bathroom_appliances(self) -> str:
+        return self.bathroom_appliances[:2000]
+
+    def format_bedroom_appliances(self) -> str:
+        return self.bedroom_appliances[:2000]
+
+    def format_living_room_appliances(self) -> str:
+        return self.living_room_appliances[:2000]
+
+    def format_non_included_appliances(self) -> str:
+        return self.non_included_appliances[:2000]
+
+    def format_other_included_appliances(self) -> str:
+        return self.other_included_appliances[:2000]
+
+    def format_storage_space(self) -> str:
+        return self.storage_space[:1000]
+
+    def format_car_storage(self) -> str:
+        return self.car_storage[:300]
+
+    def format_common_areas(self) -> str:
+        return self.common_areas[:200]
+
+    def format_antenna_system(self) -> str:
+        return self.antenna_system[:50]
+
+    def format_tv_appliances(self) -> str:
+        return self.tv_appliances[:500]
+
+    def format_internet_appliances(self) -> str:
+        return self.internet_appliances[:500]
+
+    def format_becomes_available(self) -> str:
+        return self.becomes_available[:200]
+
+    def format_rent_min_length(self) -> str:
+        return self.rent_min_length[:500]
+
+    def format_municipal_development(self) -> str:
+        return self.municipal_development[:200]
+
+    def format_honoring_clause(self) -> str:
+        return self.honoring_clause[:30]
+
+    def format_lease_holder(self) -> str:
+        return self.lease_holder[:50]
+
+    def format_term_of_lease(self) -> str:
+        return self.term_of_lease[:500]
+
+    def format_encumbrances(self) -> str:
+        return self.encumbrances[:200]
+
+    def format_mortgages(self) -> str:
+        return self.mortgages[:100]
+
+    def format_rent_increase(self) -> str:
+        return self.rent_increase[:500]
+
+    def format_renting_terms(self) -> str:
+        return self.renting_terms[:4000]
+
+    def format_services(self) -> str:
+        return self.services[:200]
+
+    def format_connections(self) -> str:
+        return self.connections[:200]
+
+    def format_driving_instructions(self) -> str:
+        return self.driving_instructions[:200]
+
+    def format_buyer_costs(self) -> str:
+        return self.buyer_costs[:500]
+
+    def format_rent_security_deposit(self) -> str:
+        return self.rent_security_deposit[:2000]
+
+    def format_magazine_identifier(self) -> str:
+        return self.magazine_identifier[:20]
+
+    def format_print_media_text(self) -> str:
+        return self.print_media_text[:4000]
+
+    def format_estate_agent_contact_person(self) -> str:
+        return self.estate_agent_contact_person[:100]
+
+    def format_estate_agent_email(self) -> str:
+        return self.estate_agent_email[:100]
+
+    def format_estate_agent_telephone(self) -> str:
+        return self.estate_agent_telephone[:100]
+
+    def format_estate_agent_title(self) -> str:
+        return self.estate_agent_title[:200]
+
+    def format_estate_agent_degrees(self) -> str:
+        return self.estate_agent_degrees[:200]
+
+    def format_estate_agent_contact_person_picture_url(self) -> str:
+        return self.estate_agent_contact_person_picture_url[:300]
+
+    def format_inquiries(self) -> str:
+        return self.inquiries[:500]
+
+    def format_showing_date_explanation1(self) -> str:
+        return self.showing_date_explanation1[:400]
+
+    def format_showing_date_explanation2(self) -> str:
+        return self.showing_date_explanation2[:400]
+
+    def format_contact_request_email(self) -> str:
+        return self.contact_request_email[:100]
+
+    def format_electronic_brochure_request_email(self) -> str:
+        return self.electronic_brochure_request_email[:50]
+
+    def format_electronic_brochure_request_url(self) -> str:
+        return self.electronic_brochure_request_url[:500]
+
+    def format_application_url(self) -> str:
+        return self.application_url[:500]
+
+    def format_more_info_url(self) -> str:
+        return self.more_info_url[:500]
+
+    def format_banner_html(self) -> str:
+        return self.banner_html[:500]
+
+    def format_promotional_offer_description(self) -> str:
+        return self.promotional_offer_description[:180]
+
+    def format_promotional_offer_url(self) -> str:
+        return self.promotional_offer_url[:300]
+
+    def format_promotional_offer_url_text(self) -> str:
+        return self.promotional_offer_url_text[:30]
+
+    def format_promotional_offer_logo(self) -> str:
+        return self.promotional_offer_logo[:300]
+
+    def format_online_offer_logo(self) -> str:
+        return self.online_offer_logo[:300]
+
+    def format_online_offer_url(self) -> str:
+        return self.online_offer_url[:300]
+
+    def format_online_offer_search_logo(self) -> str:
+        return self.online_offer_search_logo[:300]
+
+    def format_rc_energyclass(self) -> str:
+        return self.rc_energyclass[:200]
+
+    def format_estate_division(self) -> str:
+        return self.estate_division[:500]
 
     def format_pictures(self) -> Generator[etree._Element, None, None]:
         for picture in self.pictures:
