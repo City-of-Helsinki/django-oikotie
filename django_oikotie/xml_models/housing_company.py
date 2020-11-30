@@ -28,9 +28,7 @@ class _BasePicture(XMLModel):
         if timestamp_formatted:
             kwargs["timestamp"] = timestamp_formatted
 
-        element = etree.Element(
-            self.Meta.element_name, **kwargs
-        )
+        element = etree.Element(self.Meta.element_name, **kwargs)
         element.text = self.format_image_url()
         return element
 
@@ -218,7 +216,7 @@ class HousingCompany(XMLModel):
         case = Case.KEBAB
 
     def format_key(self) -> str:
-        return self.key[:30]
+        return self.key[:100]
 
     def format_name(self) -> str:
         return self.name[:100]

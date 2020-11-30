@@ -1060,7 +1060,7 @@ class Apartment(XMLModel):
         attributes = ["action", "type", "new_houses", "new_apartment_reserved"]
 
     def format_key(self) -> str:
-        return self.key[:30]
+        return self.key[:100]
 
     def format_vendor_identifier(self) -> str:
         return self.vendor_identifier[:40]
@@ -1153,7 +1153,7 @@ class Apartment(XMLModel):
         return self.housing_company_name[:100]
 
     def format_housing_company_key(self) -> str:
-        return self.housing_company_key[:30]
+        return self.housing_company_key[:2000]
 
     def format_business_id(self) -> str:
         return self.business_id[:12]
