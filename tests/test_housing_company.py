@@ -1,6 +1,7 @@
+from os import path, remove
 from datetime import datetime
-
 import pytest
+from django.test import override_settings
 
 from django_oikotie.enums import ApartmentType
 from django_oikotie.utils import yes_no_bool
@@ -20,6 +21,7 @@ from .factories.housing_company import (
     VirtualPresentationFactory,
 )
 from .utils import obj_to_xml_str
+from django_oikotie.oikotie import create_housing_companies
 
 
 def test__address__minimal_xml_serialization():
@@ -358,3 +360,19 @@ def test__housing_company__complete_xml_serialization():
         f"  </property-development>\n"
         f"</housing-company>\n"
     )
+
+
+@override_settings(OIKOTIE_TRANSFER_ID="test", OIKOTIE_COMPANY_NAME="ATT", OIKOTIE_ENTRYPOINT='test')
+def test_appartment_xml_created():
+    housing_company = HousingCompanyFactory.create_batch(1)
+    test_file = create_housing_companies(housing_company)
+    test_xml = open(test_file, "r")
+    test_xml = test_xml.read()
+
+    expected = ["<?xml version='1.0' encoding='utf-8'?>",
+                '<housing-company>', '<key>', '<real-estate-agent>', '<vendor-id>']
+
+    assert all(item in test_xml for item in expected)
+
+    if path.exists(test_file):
+        remove(test_file)

@@ -25,10 +25,8 @@ def get_filename(prefix):
     )
 
 
-def write_file(filename, root):
+def send_items(filename):
     session = get_session()
-    tree = ElementTree(root)
-    tree.write(filename, encoding="utf-8", xml_declaration=True)
     session.storbinary("STOR {}.temp".format(filename), open(filename, "rb"))
     session.rename("{}.temp".format(filename), filename)
     session.quit()
@@ -39,7 +37,9 @@ def create_housing_companies(housing_companies):
     root = Element("housing-companies")
     for housing_company in housing_companies:
         root.append(housing_company.to_etree())
-    write_file(filename, root)
+    tree = ElementTree(root)
+    tree.write(filename, encoding="utf-8", xml_declaration=True)
+    return filename
 
 
 def create_apartments(apartments):
@@ -47,7 +47,9 @@ def create_apartments(apartments):
     root = Element("Apartments")
     for apartment in apartments:
         root.append(apartment.to_etree())
-    write_file(filename, root)
+    tree = ElementTree(root)
+    tree.write(filename, encoding="utf-8", xml_declaration=True)
+    return filename
 
 
 def update_apartments(apartments, action=ApartmentAction.UPDATE):
@@ -56,7 +58,9 @@ def update_apartments(apartments, action=ApartmentAction.UPDATE):
     for apartment in apartments:
         apartment.action = action
         root.append(apartment.to_etree())
-    write_file(filename, root)
+    tree = ElementTree(root)
+    tree.write(filename, encoding="utf-8", xml_declaration=True)
+    return filename
 
 
 def remove_apartments(apartments):
