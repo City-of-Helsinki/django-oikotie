@@ -6,6 +6,8 @@ faker
 flake8
 isort
 lxml
+pip-tools
+pre-commit
 pytest
 pytest-django
 pytest-cov
