@@ -64,4 +64,4 @@ def update_apartments(apartments, action=ApartmentAction.UPDATE):
 
 
 def remove_apartments(apartments):
-    update_apartments(apartments, ApartmentAction.REMOVE)
+    return update_apartments(apartments, ApartmentAction.REMOVE)
