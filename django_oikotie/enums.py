@@ -91,7 +91,7 @@ class ModeOfHabitationRentType(Enum):
 class NewDevelopmentStatusChoices(Enum):
     NONE_OR_HIDDEN = 0
     UNDER_PLANNING = 1
-    PREMARKETING = 2
+    PRE_MARKETING = 2
     UNDER_CONSTRUCTION = 3
     READY_TO_MOVE = 4
 
