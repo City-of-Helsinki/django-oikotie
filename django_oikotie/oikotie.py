@@ -27,8 +27,8 @@ def get_filename(prefix):
 
 def send_items(filename):
     session = get_session()
-    session.storbinary("STOR {}.temp".format(filename), open(filename, "rb"))
-    session.rename("{}.temp".format(filename), filename)
+    session.storbinary("STOR temp/{}.temp".format(filename), open(filename, "rb"))
+    session.rename("temp/{}.temp".format(filename), "data/{}".format(filename))
     session.quit()
 
 
