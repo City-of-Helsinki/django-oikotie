@@ -33,39 +33,36 @@ def send_items(filename):
     session.quit()
 
 
-def create_housing_companies(housing_companies, file_path=""):
+def create_housing_companies(housing_companies, file_path="."):
     filename = get_filename("HOUSINGCOMPANY")
     root = Element("housing-companies")
     for housing_company in housing_companies:
         root.append(housing_company.to_etree())
     tree = ElementTree(root)
-    if file_path:
-        filename = path.join(file_path, filename)
+    filename = path.join(file_path, filename)
     tree.write(filename, encoding="utf-8", xml_declaration=True)
     return filename
 
 
-def create_apartments(apartments, file_path=""):
+def create_apartments(apartments, file_path="."):
     filename = get_filename("APT")
     root = Element("Apartments")
     for apartment in apartments:
         root.append(apartment.to_etree())
     tree = ElementTree(root)
-    if file_path:
-        filename = path.join(file_path, filename)
+    filename = path.join(file_path, filename)
     tree.write(filename, encoding="utf-8", xml_declaration=True)
     return filename
 
 
-def update_apartments(apartments, action=ApartmentAction.UPDATE, file_path=""):
+def update_apartments(apartments, action=ApartmentAction.UPDATE, file_path="."):
     filename = get_filename("UPDATEAPT")
     root = Element("Apartments")
     for apartment in apartments:
         apartment.action = action
         root.append(apartment.to_etree())
     tree = ElementTree(root)
-    if file_path:
-        filename = path.join(file_path, filename)
+    filename = path.join(file_path, filename)
     tree.write(filename, encoding="utf-8", xml_declaration=True)
     return filename
 
