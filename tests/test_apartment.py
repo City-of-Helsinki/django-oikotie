@@ -1,8 +1,8 @@
-from os import path, remove
-import pytest
 from datetime import date, datetime
 from decimal import Decimal
+
 from django.test import override_settings
+import pytest
 
 from django_oikotie.oikotie import create_apartments
 
@@ -743,10 +743,10 @@ def test__apartment__complete_xml_serialization():
     )
 
 
-@override_settings(OIKOTIE_TRANSFER_ID="test", OIKOTIE_COMPANY_NAME="ATT", OIKOTIE_ENTRYPOINT='test')
-def test_appartment_xml_created():
+@override_settings(OIKOTIE_TRANSFER_ID="test", OIKOTIE_COMPANY_NAME="ATT", OIKOTIE_ENTRYPOINT="test")
+def test_appartment_xml_created(test_folder):
     apartment = MinimalApartmentFactory.create_batch(1)
-    test_file = create_apartments(apartment)
+    test_file = create_apartments(apartment, test_folder)
     test_xml = open(test_file, "r")
     test_xml = test_xml.read()
 
@@ -754,6 +754,3 @@ def test_appartment_xml_created():
                 '<Apartment type', 'newHouses', '<Key>', '<VendorIdentifier>']
 
     assert all(item in test_xml for item in expected)
-
-    if path.exists(test_file):
-        remove(test_file)
