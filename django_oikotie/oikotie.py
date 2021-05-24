@@ -26,11 +26,12 @@ def get_filename(prefix):
     )
 
 
-def send_items(filename):
+def send_items(file_path, filename):
     session = get_session()
-    session.storbinary("STOR temp/{}.temp".format(filename), open(filename, "rb"))
-    session.rename("temp/{}.temp".format(filename), "data/{}".format(filename))
-    session.quit()
+    with open(path.join(file_path, filename), "rb") as f:
+        session.storbinary("STOR temp/{}.temp".format(filename), f)
+        session.rename("temp/{}.temp".format(filename), "data/{}".format(filename))
+        session.quit()
 
 
 def create_housing_companies(housing_companies, file_path="."):
@@ -39,9 +40,8 @@ def create_housing_companies(housing_companies, file_path="."):
     for housing_company in housing_companies:
         root.append(housing_company.to_etree())
     tree = ElementTree(root)
-    filename = path.join(file_path, filename)
-    tree.write(filename, encoding="utf-8", xml_declaration=True)
-    return filename
+    tree.write(path.join(file_path, filename), encoding="utf-8", xml_declaration=True)
+    return file_path, filename
 
 
 def create_apartments(apartments, file_path="."):
@@ -50,9 +50,8 @@ def create_apartments(apartments, file_path="."):
     for apartment in apartments:
         root.append(apartment.to_etree())
     tree = ElementTree(root)
-    filename = path.join(file_path, filename)
-    tree.write(filename, encoding="utf-8", xml_declaration=True)
-    return filename
+    tree.write(path.join(file_path, filename), encoding="utf-8", xml_declaration=True)
+    return file_path, filename
 
 
 def update_apartments(apartments, action=ApartmentAction.UPDATE, file_path="."):
@@ -62,9 +61,8 @@ def update_apartments(apartments, action=ApartmentAction.UPDATE, file_path="."):
         apartment.action = action
         root.append(apartment.to_etree())
     tree = ElementTree(root)
-    filename = path.join(file_path, filename)
-    tree.write(filename, encoding="utf-8", xml_declaration=True)
-    return filename
+    tree.write(path.join(file_path, filename), encoding="utf-8", xml_declaration=True)
+    return file_path, filename
 
 
 def remove_apartments(apartments):
