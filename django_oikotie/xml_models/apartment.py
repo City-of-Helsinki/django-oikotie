@@ -202,7 +202,7 @@ class Attachments(XMLModel):
 @dataclass
 class Balcony(XMLModel):
     value: bool
-    description: str
+    description: Optional[str] = None
 
     class Meta:
         element_name = "Balcony"
@@ -213,8 +213,9 @@ class Balcony(XMLModel):
         element.text = self.format_description()
         return element
 
-    def format_description(self) -> str:
-        return self.description[:300]
+    def format_description(self) -> Optional[str]:
+        if self.description:
+            return self.description[:300]
 
 
 @dataclass
