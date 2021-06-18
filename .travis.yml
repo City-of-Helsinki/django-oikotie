@@ -1,14 +1,19 @@
 branches: {only: [master, develop]}
-dist: xenial
 sudo: false
 language: python
-python:
-  - 3.8
+python: 3.8
 cache: pip
 
 matrix:
   include:
-    - name: Coding style
+    - name: Unit tests
+      install: pip install -r requirements-test.txt
+      before_script:
+        - pip install -e .
+      script: pytest -ra -vv --doctest-modules --cov=.
+      after_success: pip install codecov && codecov
+
+    - name: Code style
       install: pip install -r requirements-test.txt
       script:
         - black --check .

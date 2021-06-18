@@ -1,12 +1,12 @@
 import time
 from ftplib import FTP
+from os import path
 from xml.etree.ElementTree import ElementTree
 
 from django.conf import settings
 from lxml.etree import Element
 
-from django_oikotie.enums import ApartmentAction, Case
-from django_oikotie.utils import object_to_etree
+from django_oikotie.enums import ApartmentAction
 
 
 def get_session():
@@ -26,41 +26,44 @@ def get_filename(prefix):
     )
 
 
-def write_file(filename, root):
+def send_items(file_path, filename):
     session = get_session()
-    tree = ElementTree(root)
-    tree.write(filename, encoding="utf-8", xml_declaration=True)
-    session.storbinary("STOR {}.temp".format(filename), open(filename, "rb"))
-    session.rename("{}.temp".format(filename), filename)
-    session.quit()
+    with open(path.join(file_path, filename), "rb") as f:
+        session.storbinary("STOR temp/{}.temp".format(filename), f)
+        session.rename("temp/{}.temp".format(filename), "data/{}".format(filename))
+        session.quit()
 
 
-def create_housing_companies(housing_companies):
+def create_housing_companies(housing_companies, file_path="."):
     filename = get_filename("HOUSINGCOMPANY")
     root = Element("housing-companies")
     for housing_company in housing_companies:
-        root.append(object_to_etree(housing_company, Case.KEBAB))
-    write_file(filename, root)
+        root.append(housing_company.to_etree())
+    tree = ElementTree(root)
+    tree.write(path.join(file_path, filename), encoding="utf-8", xml_declaration=True)
+    return filename
 
 
-def create_apartments(apartments):
+def create_apartments(apartments, file_path="."):
     filename = get_filename("APT")
     root = Element("Apartments")
     for apartment in apartments:
-        root.append(object_to_etree(apartment, Case.PASCAL))
-    write_file(filename, root)
+        root.append(apartment.to_etree())
+    tree = ElementTree(root)
+    tree.write(path.join(file_path, filename), encoding="utf-8", xml_declaration=True)
+    return filename
 
 
-def update_apartments(apartments, action=ApartmentAction.UPDATE):
+def update_apartments(apartments, action=ApartmentAction.UPDATE, file_path="."):
     filename = get_filename("UPDATEAPT")
     root = Element("Apartments")
     for apartment in apartments:
-        apartment_etree = object_to_etree(apartment, Case.PASCAL)
-        apartment_etree.set("action", action.value)
-        apartment_etree
-        root.append(apartment_etree)
-    write_file(filename, root)
+        apartment.action = action
+        root.append(apartment.to_etree())
+    tree = ElementTree(root)
+    tree.write(path.join(file_path, filename), encoding="utf-8", xml_declaration=True)
+    return filename
 
 
 def remove_apartments(apartments):
-    update_apartments(apartments, ApartmentAction.REMOVE)
+    return update_apartments(apartments, ApartmentAction.REMOVE)
