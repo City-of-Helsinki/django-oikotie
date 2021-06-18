@@ -41,7 +41,7 @@ def create_housing_companies(housing_companies, file_path="."):
         root.append(housing_company.to_etree())
     tree = ElementTree(root)
     tree.write(path.join(file_path, filename), encoding="utf-8", xml_declaration=True)
-    return file_path, filename
+    return filename
 
 
 def create_apartments(apartments, file_path="."):
@@ -51,7 +51,7 @@ def create_apartments(apartments, file_path="."):
         root.append(apartment.to_etree())
     tree = ElementTree(root)
     tree.write(path.join(file_path, filename), encoding="utf-8", xml_declaration=True)
-    return file_path, filename
+    return filename
 
 
 def update_apartments(apartments, action=ApartmentAction.UPDATE, file_path="."):
@@ -62,7 +62,7 @@ def update_apartments(apartments, action=ApartmentAction.UPDATE, file_path="."):
         root.append(apartment.to_etree())
     tree = ElementTree(root)
     tree.write(path.join(file_path, filename), encoding="utf-8", xml_declaration=True)
-    return file_path, filename
+    return filename
 
 
 def remove_apartments(apartments):
