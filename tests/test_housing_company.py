@@ -363,14 +363,21 @@ def test__housing_company__complete_xml_serialization():
     )
 
 
-@override_settings(OIKOTIE_TRANSFER_ID="test", OIKOTIE_COMPANY_NAME="ATT", OIKOTIE_ENTRYPOINT='test')
+@override_settings(
+    OIKOTIE_TRANSFER_ID="test", OIKOTIE_COMPANY_NAME="ATT", OIKOTIE_ENTRYPOINT="test"
+)
 def test_appartment_xml_created(test_folder):
     housing_company = HousingCompanyFactory.create_batch(1)
     test_file = create_housing_companies(housing_company, test_folder)
     test_xml = open(path.join(test_folder, test_file), "r")
     test_xml = test_xml.read()
 
-    expected = ["<?xml version='1.0' encoding='utf-8'?>",
-                '<housing-company>', '<key>', '<real-estate-agent>', '<vendor-id>']
+    expected = [
+        "<?xml version='1.0' encoding='utf-8'?>",
+        "<housing-company>",
+        "<key>",
+        "<real-estate-agent>",
+        "<vendor-id>",
+    ]
 
     assert all(item in test_xml for item in expected)
