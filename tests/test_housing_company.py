@@ -1,3 +1,5 @@
+# ruff: noqa: E501
+
 from datetime import datetime
 from os import path
 
