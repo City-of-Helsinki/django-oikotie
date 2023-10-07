@@ -33,7 +33,7 @@ def truncate_to_n_decimal_places(value: Union[float, Decimal], n: int) -> float:
     """
     Truncate float or Decimal to n decimal places.
     """
-    return math.floor(value * 10 ** n) / 10 ** n
+    return math.floor(value * 10**n) / 10**n
 
 
 def yes_no_bool(value: bool) -> str:
