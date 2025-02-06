@@ -2,13 +2,35 @@ import math
 from decimal import Decimal
 from typing import TYPE_CHECKING, Union
 
+import os
+
 from lxml import etree
+from xml.etree import ElementTree
 
 from .enums import Case
 
 if TYPE_CHECKING:
     from .xml_models import XMLModel
 
+schema_dir = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        'schemas'
+    ) # TODO: parametricize
+
+def validate_against_schema(schema_filename: str, xml_path: str) -> bool:
+    print(os.path.join(schema_dir, schema_filename))
+    schema: etree.RelaxNG = etree.RelaxNG(
+        etree.parse(os.path.join(schema_dir, schema_filename))
+    )
+
+
+    with open(xml_path, "rb") as f:
+        file_content = f.read()
+        xml_file = etree.fromstring(file_content)
+        return schema.validate(
+            xml_file
+        )
+    pass
 
 def object_to_xml_string(obj: "XMLModel", encoding: str = "utf-8"):
     root = obj.to_etree()
