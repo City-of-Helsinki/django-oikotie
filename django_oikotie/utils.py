@@ -15,14 +15,13 @@ if TYPE_CHECKING:
 schema_dir = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
         'schemas'
-    ) # TODO: parametricize
+    ) # TODO: parametrize
 
 def validate_against_schema(schema_filename: str, xml_path: str) -> bool:
-    print(os.path.join(schema_dir, schema_filename))
+
     schema: etree.RelaxNG = etree.RelaxNG(
         etree.parse(os.path.join(schema_dir, schema_filename))
     )
-
 
     with open(xml_path, "rb") as f:
         file_content = f.read()
