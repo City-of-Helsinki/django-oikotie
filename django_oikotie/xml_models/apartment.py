@@ -827,7 +827,6 @@ class Apartment(XMLModel):
     room_types: Optional[str] = None
     other_space_description: Optional[str] = None
     balcony: Optional[Balcony] = None
-    has_terrace: Optional[bool] = None
     terrace: Optional[str] = None
     direction_of_windows: Optional[str] = None
     view: Optional[str] = None

@@ -17,18 +17,29 @@ schema_dir = os.path.join(
         'schemas'
     ) # TODO: parametrize
 
+import logging
+
+_logger = logging.getLogger(__name__)
+
 def validate_against_schema(schema_filename: str, xml_path: str) -> bool:
 
     schema: etree.RelaxNG = etree.RelaxNG(
         etree.parse(os.path.join(schema_dir, schema_filename))
     )
 
+    _logger.info(f'Validating file {xml_path} against schema {schema_filename}')
     with open(xml_path, "rb") as f:
         file_content = f.read()
         xml_file = etree.fromstring(file_content)
-        return schema.validate(
+        valid = schema.validate(
             xml_file
         )
+        if not valid:
+            _logger.error(schema.error_log)
+        else:
+            _logger.info(f"File {xml_path} is valid")
+
+        return valid
     pass
 
 def object_to_xml_string(obj: "XMLModel", encoding: str = "utf-8"):
