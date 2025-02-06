@@ -7,6 +7,8 @@ import os
 from lxml import etree
 from xml.etree import ElementTree
 
+from apartment_application_service import settings
+
 from .enums import Case
 
 if TYPE_CHECKING:
@@ -15,17 +17,40 @@ if TYPE_CHECKING:
 schema_dir = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
         'schemas'
-    ) # TODO: parametrize
+    ) # TODO: parameterize
 
 import logging
 
 _logger = logging.getLogger(__name__)
 
+def get_schemas() -> dict:  # TODO: add return type
+    """
+    Fetches relaxNG validation schemas from external storage or from local files (dev env).
+    """
+
+    # TODO: parameterize
+    filenames = (
+        "oikotie-apartments-batch.rng",
+        "oikotie-housingcompanies-batch.rng",
+        "oikotie-apartments-update.rng",
+    )
+    schemas = {}
+    if settings.DEBUG:
+        for filename in filenames:
+            schema: etree.RelaxNG = etree.RelaxNG(
+                etree.parse(os.path.join(schema_dir, filename))
+            )
+            schemas[filename] = schema
+        # TODO: write tests
+    else:
+        # TODO: add external storage option
+        return None
+    
+    return schemas
+
 def validate_against_schema(schema_filename: str, xml_path: str) -> bool:
 
-    schema: etree.RelaxNG = etree.RelaxNG(
-        etree.parse(os.path.join(schema_dir, schema_filename))
-    )
+    schema = get_schemas()[schema_filename]
 
     _logger.info(f'Validating file {xml_path} against schema {schema_filename}')
     with open(xml_path, "rb") as f:
