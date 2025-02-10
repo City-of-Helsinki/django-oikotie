@@ -117,18 +117,18 @@ class ConstructionDetails(XMLModel):
 
 @dataclass
 class Coordinates(XMLModel):
-    latitude: float
-    longitude: float
+    x: float
+    y: float
 
     class Meta:
         element_name = "coordinates"
         case = Case.KEBAB
 
     def format_latitude(self) -> str:
-        return "{:.5f}".format(truncate_to_n_decimal_places(self.latitude, n=5))
+        return "{:.5f}".format(truncate_to_n_decimal_places(self.x, n=5))
 
     def format_longitude(self) -> str:
-        return "{:.5f}".format(truncate_to_n_decimal_places(self.longitude, n=5))
+        return "{:.5f}".format(truncate_to_n_decimal_places(self.y, n=5))
 
 
 @dataclass

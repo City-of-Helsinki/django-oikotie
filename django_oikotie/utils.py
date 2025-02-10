@@ -14,10 +14,7 @@ from .enums import Case
 if TYPE_CHECKING:
     from .xml_models import XMLModel
 
-schema_dir = os.path.join(
-        os.path.dirname(os.path.realpath(__file__)),
-        'schemas'
-    ) # TODO: parameterize
+schema_dir = settings.OIKOTIE_SCHEMA_DIR
 
 import logging
 
@@ -30,23 +27,22 @@ def get_schemas() -> dict:  # TODO: add return type
 
     # TODO: parameterize
     filenames = (
-        "oikotie-apartments-batch.rng",
-        "oikotie-housingcompanies-batch.rng",
-        "oikotie-apartments-update.rng",
+        settings.OIKOTIE_APARTMENTS_BATCH_SCHEMA_URL,
+        settings.OIKOTIE_APARTMENTS_UPDATE_SCHEMA_URL,
+        settings.OIKOTIE_HOUSINGCOMPANIES_BATCH_SCHEMA_URL,
     )
     schemas = {}
-    if settings.DEBUG:
-        for filename in filenames:
-            schema: etree.RelaxNG = etree.RelaxNG(
-                etree.parse(os.path.join(schema_dir, filename))
-            )
-            schemas[filename] = schema
-        # TODO: write tests
-    else:
-        # TODO: add external storage option
-        return None
+    _logger.info(f"get schemas from {schema_dir}")
+
+    for filename in filenames:
+
+        schema: etree.RelaxNG = etree.RelaxNG(
+            etree.parse(os.path.join(schema_dir, filename))
+        )
+        schemas[filename] = schema
     
     return schemas
+
 
 def validate_against_schema(schema_filename: str, xml_path: str) -> bool:
 
