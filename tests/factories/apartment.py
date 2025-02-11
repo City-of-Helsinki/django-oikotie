@@ -574,7 +574,6 @@ class ApartmentFactory(factory.Factory):
     room_types = fuzzy.FuzzyText()
     other_space_description = fuzzy.FuzzyText()
     balcony = factory.SubFactory(BalconyFactory)
-    has_terrace = fuzzy.FuzzyChoice([True, False])
     terrace = fuzzy.FuzzyText()
     direction_of_windows = fuzzy.FuzzyText()
     view = fuzzy.FuzzyText()

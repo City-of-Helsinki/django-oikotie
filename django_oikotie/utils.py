@@ -27,9 +27,9 @@ def get_schemas() -> dict:  # TODO: add return type
 
     # TODO: parameterize
     filenames = (
-        settings.OIKOTIE_APARTMENTS_BATCH_SCHEMA_URL,
-        settings.OIKOTIE_APARTMENTS_UPDATE_SCHEMA_URL,
-        settings.OIKOTIE_HOUSINGCOMPANIES_BATCH_SCHEMA_URL,
+        settings.OIKOTIE_APARTMENTS_BATCH_SCHEMA,
+        settings.OIKOTIE_APARTMENTS_UPDATE_SCHEMA,
+        settings.OIKOTIE_HOUSINGCOMPANIES_BATCH_SCHEMA,
     )
     schemas = {}
     _logger.info(f"get schemas from {schema_dir}")

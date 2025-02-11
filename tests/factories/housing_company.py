@@ -69,8 +69,8 @@ class CoordinatesFactory(factory.Factory):
     class Meta:
         model = Coordinates
 
-    latitude = fuzzy.FuzzyFloat(-90, 90)
-    longitude = fuzzy.FuzzyFloat(-180, 180)
+    x = fuzzy.FuzzyFloat(-90, 90)
+    y = fuzzy.FuzzyFloat(-180, 180)
 
 
 class MoreInfoFactory(factory.Factory):
