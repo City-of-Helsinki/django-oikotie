@@ -5,25 +5,27 @@ from typing import TYPE_CHECKING, Union
 import os
 
 from lxml import etree
-from xml.etree import ElementTree
 
-from apartment_application_service import settings
+from django.conf import settings
 
 from .enums import Case
 
 if TYPE_CHECKING:
     from .xml_models import XMLModel
 
-schema_dir = settings.OIKOTIE_SCHEMA_DIR
 
 import logging
 
 _logger = logging.getLogger(__name__)
 
+
 def get_schemas() -> dict:  # TODO: add return type
     """
-    Fetches relaxNG validation schemas from external storage or from local files (dev env).
+    Fetches relaxNG validation schemas from external storage\
+    or from local files (dev env).
     """
+    schema_dir = settings.OIKOTIE_SCHEMA_DIR
+    _logger.info(f"schema_dir {schema_dir}")
 
     # TODO: parameterize
     filenames = (
@@ -40,15 +42,14 @@ def get_schemas() -> dict:  # TODO: add return type
             etree.parse(os.path.join(schema_dir, filename))
         )
         schemas[filename] = schema
-    
+
     return schemas
 
 
 def validate_against_schema(schema_filename: str, xml_path: str) -> bool:
-
     schema = get_schemas()[schema_filename]
 
-    _logger.info(f'Validating file {xml_path} against schema {schema_filename}')
+    _logger.info(f'Validating file {xml_path} against schema {os.path.join(settings.OIKOTIE_SCHEMA_DIR, schema_filename)}')  # noqa: E501
     with open(xml_path, "rb") as f:
         file_content = f.read()
         xml_file = etree.fromstring(file_content)
@@ -62,6 +63,7 @@ def validate_against_schema(schema_filename: str, xml_path: str) -> bool:
 
         return valid
     pass
+
 
 def object_to_xml_string(obj: "XMLModel", encoding: str = "utf-8"):
     root = obj.to_etree()

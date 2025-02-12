@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # Schema files
-schemas/
+django-oikotie/schemas
 
 # Distribution / packaging
 .Python
