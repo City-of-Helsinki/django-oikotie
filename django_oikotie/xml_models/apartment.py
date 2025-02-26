@@ -5,11 +5,22 @@ from typing import Generator, List, Literal, Optional
 
 from lxml import etree
 
-from ..enums import (ApartmentAction, ApartmentType, BuildingRightAmountType,
-                     Case, EstateType, GeneralConditionLevel, LivingAreaType,
-                     ModeOfHabitationRentType, ModeOfHabitationType,
-                     NewDevelopmentStatusChoices, ParkingSpaceHeatingType,
-                     ParkingSpaceType, ShoreType, SiteType)
+from ..enums import (
+    ApartmentAction,
+    ApartmentType,
+    BuildingRightAmountType,
+    Case,
+    EstateType,
+    GeneralConditionLevel,
+    LivingAreaType,
+    ModeOfHabitationRentType,
+    ModeOfHabitationType,
+    NewDevelopmentStatusChoices,
+    ParkingSpaceHeatingType,
+    ParkingSpaceType,
+    ShoreType,
+    SiteType,
+)
 from ..utils import truncate_to_n_decimal_places, yes_no_bool
 from . import XMLModel
 

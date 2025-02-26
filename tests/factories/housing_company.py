@@ -4,16 +4,20 @@ from django.utils import timezone
 from factory import fuzzy
 
 from django_oikotie.enums import ApartmentType, Availability
-from django_oikotie.xml_models.housing_company import (Address, Apartment,
-                                                       Builder,
-                                                       CityPlanPicture,
-                                                       ConstructionDetails,
-                                                       Coordinates,
-                                                       HousingCompany,
-                                                       MoreInfo, Picture,
-                                                       PropertyDevelopment,
-                                                       RealEstateAgent,
-                                                       VirtualPresentation)
+from django_oikotie.xml_models.housing_company import (
+    Address,
+    Apartment,
+    Builder,
+    CityPlanPicture,
+    ConstructionDetails,
+    Coordinates,
+    HousingCompany,
+    MoreInfo,
+    Picture,
+    PropertyDevelopment,
+    RealEstateAgent,
+    VirtualPresentation,
+)
 
 fake = faker.Faker()
 

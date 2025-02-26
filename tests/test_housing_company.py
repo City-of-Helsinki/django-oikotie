@@ -10,15 +10,20 @@ from django_oikotie.enums import ApartmentType
 from django_oikotie.oikotie import create_housing_companies
 from django_oikotie.utils import yes_no_bool
 
-from .factories.housing_company import (AddressFactory, ApartmentFactory,
-                                        BuilderFactory, CityPlanPictureFactory,
-                                        ConstructionDetailsFactory,
-                                        CoordinatesFactory,
-                                        HousingCompanyFactory, MoreInfoFactory,
-                                        PictureFactory,
-                                        PropertyDevelopmentFactory,
-                                        RealEstateAgentFactory,
-                                        VirtualPresentationFactory)
+from .factories.housing_company import (
+    AddressFactory,
+    ApartmentFactory,
+    BuilderFactory,
+    CityPlanPictureFactory,
+    ConstructionDetailsFactory,
+    CoordinatesFactory,
+    HousingCompanyFactory,
+    MoreInfoFactory,
+    PictureFactory,
+    PropertyDevelopmentFactory,
+    RealEstateAgentFactory,
+    VirtualPresentationFactory,
+)
 from .utils import obj_to_xml_str
 
 
