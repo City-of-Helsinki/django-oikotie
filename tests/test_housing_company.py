@@ -5,7 +5,6 @@ from os import path
 
 import pytest
 from django.test import override_settings
-
 from django_oikotie.enums import ApartmentType
 from django_oikotie.oikotie import create_housing_companies
 from django_oikotie.utils import yes_no_bool

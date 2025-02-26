@@ -1,8 +1,6 @@
 import factory
 import faker
 from django.utils import timezone
-from factory import fuzzy
-
 from django_oikotie.enums import ApartmentType, Availability
 from django_oikotie.xml_models.housing_company import (
     Address,
@@ -18,6 +16,7 @@ from django_oikotie.xml_models.housing_company import (
     RealEstateAgent,
     VirtualPresentation,
 )
+from factory import fuzzy
 
 fake = faker.Faker()
 

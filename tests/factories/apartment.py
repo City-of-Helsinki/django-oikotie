@@ -1,7 +1,5 @@
 import factory
 from django.utils import timezone
-from factory import fuzzy
-
 from django_oikotie.enums import (
     ApartmentAction,
     ApartmentType,
@@ -74,6 +72,7 @@ from django_oikotie.xml_models.apartment import (
     WaterFee,
     YearOfBuilding,
 )
+from factory import fuzzy
 
 
 class CableTvChargeFactory(factory.Factory):

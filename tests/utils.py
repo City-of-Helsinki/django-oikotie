@@ -1,7 +1,7 @@
 import os
-from lxml import etree
 
 from django_oikotie.xml_models import XMLModel
+from lxml import etree
 
 
 def obj_to_xml_str(obj: XMLModel) -> str:

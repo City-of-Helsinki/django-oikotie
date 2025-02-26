@@ -6,7 +6,6 @@ from os import path
 
 import pytest
 from django.test import override_settings
-
 from django_oikotie.oikotie import create_apartments
 
 from .factories.apartment import (
