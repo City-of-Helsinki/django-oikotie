@@ -1,7 +1,10 @@
+import logging
 import os
 
 from django_oikotie.xml_models import XMLModel
 from lxml import etree
+
+_logger = logging.getLogger()
 
 
 def obj_to_xml_str(obj: XMLModel) -> str:
@@ -11,8 +14,7 @@ def obj_to_xml_str(obj: XMLModel) -> str:
 
 
 def get_tests_base_path() -> str:
-    return os.path.join(
-        os.getcwd(),
-        "django-oikotie",
-        "tests",
-    )
+    path = os.path.dirname(os.path.abspath(__file__))
+    _logger.debug("Tests base path: '%s'", path)
+
+    return path
