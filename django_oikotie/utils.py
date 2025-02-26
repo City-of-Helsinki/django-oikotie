@@ -50,7 +50,7 @@ def validate_against_schema(schema_filename: str, xml_path: str) -> bool:
     schema = get_schemas()[schema_filename]
 
     _logger.info(
-        f"Validating file {xml_path} against schema {os.path.join(settings.OIKOTIE_SCHEMA_DIR, schema_filename)}"
+        f"Validating file {xml_path} against schema {os.path.join(settings.OIKOTIE_SCHEMA_DIR, schema_filename)}"  # noqa: E501
     )  # noqa: E501
     with open(xml_path, "rb") as f:
         file_content = f.read()
@@ -84,7 +84,7 @@ def transform_name(name: str, case: Case) -> str:
         return name.title().replace("_", "")
 
 
-def truncate_to_n_decimal_places(value: Union[float, Decimal], n: int) -> float:
+def truncate_to_n_decimal_places(value: Union[float, Decimal], n: int) -> float:  # noqa: E501
     """
     Truncate float or Decimal to n decimal places.
     """
