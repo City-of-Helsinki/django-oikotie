@@ -5,24 +5,20 @@ from os import path
 
 import pytest
 from django.test import override_settings
+
 from django_oikotie.enums import ApartmentType
 from django_oikotie.oikotie import create_housing_companies
 from django_oikotie.utils import yes_no_bool
 
-from .factories.housing_company import (
-    AddressFactory,
-    ApartmentFactory,
-    BuilderFactory,
-    CityPlanPictureFactory,
-    ConstructionDetailsFactory,
-    CoordinatesFactory,
-    HousingCompanyFactory,
-    MoreInfoFactory,
-    PictureFactory,
-    PropertyDevelopmentFactory,
-    RealEstateAgentFactory,
-    VirtualPresentationFactory,
-)
+from .factories.housing_company import (AddressFactory, ApartmentFactory,
+                                        BuilderFactory, CityPlanPictureFactory,
+                                        ConstructionDetailsFactory,
+                                        CoordinatesFactory,
+                                        HousingCompanyFactory, MoreInfoFactory,
+                                        PictureFactory,
+                                        PropertyDevelopmentFactory,
+                                        RealEstateAgentFactory,
+                                        VirtualPresentationFactory)
 from .utils import obj_to_xml_str
 
 
@@ -121,10 +117,7 @@ def test__coordinates__xml_serialization():
     xml = obj_to_xml_str(obj)
 
     assert xml == (
-        "<coordinates>\n"
-        "  <x>12.34567</x>\n"
-        "  <y>12.34567</y>\n"
-        "</coordinates>\n"
+        "<coordinates>\n" "  <x>12.34567</x>\n" "  <y>12.34567</y>\n" "</coordinates>\n"
     )
 
 

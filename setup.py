@@ -1,7 +1,8 @@
 import os
 
-from django_oikotie import __version__
 from setuptools import find_packages, setup
+
+from django_oikotie import __version__
 
 with open(os.path.join(os.path.dirname(__file__), "README.md")) as readme:
     README = readme.read()

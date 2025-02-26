@@ -1,8 +1,9 @@
 import logging
 import os
 
-from django_oikotie.xml_models import XMLModel
 from lxml import etree
+
+from django_oikotie.xml_models import XMLModel
 
 _logger = logging.getLogger()
 

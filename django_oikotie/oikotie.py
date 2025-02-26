@@ -4,8 +4,9 @@ from os import path
 from xml.etree.ElementTree import ElementTree
 
 from django.conf import settings
-from django_oikotie.enums import ApartmentAction
 from lxml.etree import Element
+
+from django_oikotie.enums import ApartmentAction
 
 
 def get_session():

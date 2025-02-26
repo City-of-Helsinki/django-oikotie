@@ -2,6 +2,7 @@ import os
 
 from django.conf import settings
 from django.test import override_settings
+
 from django_oikotie.utils import validate_against_schema
 from tests.utils import get_tests_base_path
 
