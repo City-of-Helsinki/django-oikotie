@@ -81,7 +81,9 @@ def transform_name(name: str, case: Case) -> str:
         return name.title().replace("_", "")
 
 
-def truncate_to_n_decimal_places(value: Union[float, Decimal], n: int) -> float:  # noqa: E501
+def truncate_to_n_decimal_places(
+    value: Union[float, Decimal], n: int
+) -> float:  # noqa: E501
     """
     Truncate float or Decimal to n decimal places.
     """
