@@ -124,10 +124,10 @@ class Coordinates(XMLModel):
         element_name = "coordinates"
         case = Case.KEBAB
 
-    def format_latitude(self) -> str:
+    def format_x(self) -> str:
         return "{:.5f}".format(truncate_to_n_decimal_places(self.x, n=5))
 
-    def format_longitude(self) -> str:
+    def format_y(self) -> str:
         return "{:.5f}".format(truncate_to_n_decimal_places(self.y, n=5))
 
 
