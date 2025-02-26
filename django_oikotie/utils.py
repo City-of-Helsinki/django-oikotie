@@ -49,13 +49,13 @@ def get_schemas() -> dict:  # TODO: add return type
 def validate_against_schema(schema_filename: str, xml_path: str) -> bool:
     schema = get_schemas()[schema_filename]
 
-    _logger.info(f'Validating file {xml_path} against schema {os.path.join(settings.OIKOTIE_SCHEMA_DIR, schema_filename)}')  # noqa: E501
+    _logger.info(
+        f"Validating file {xml_path} against schema {os.path.join(settings.OIKOTIE_SCHEMA_DIR, schema_filename)}"
+    )  # noqa: E501
     with open(xml_path, "rb") as f:
         file_content = f.read()
         xml_file = etree.fromstring(file_content)
-        valid = schema.validate(
-            xml_file
-        )
+        valid = schema.validate(xml_file)
         if not valid:
             _logger.error(schema.error_log)
         else:

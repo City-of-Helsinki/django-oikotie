@@ -9,7 +9,10 @@ def obj_to_xml_str(obj: XMLModel) -> str:
     xml = etree.tostring(root, encoding="utf-8", pretty_print=True)
     return xml.decode("utf-8")
 
+
 def get_tests_base_path() -> str:
     return os.path.join(
-        os.getcwd(), "django-oikotie", "tests",
+        os.getcwd(),
+        "django-oikotie",
+        "tests",
     )

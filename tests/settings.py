@@ -23,6 +23,6 @@ USE_TZ = True
 SECRET_KEY = "xxx"
 LANGUAGES = (("fi", "Finnish"), ("en", "English"), ("sv", "Swedish"))
 
-OIKOTIE_APARTMENTS_BATCH_SCHEMA = 'oikotie-apartments-batch.rng'
-OIKOTIE_APARTMENTS_UPDATE_SCHEMA = 'oikotie-apartments-update.rng'
-OIKOTIE_HOUSINGCOMPANIES_BATCH_SCHEMA = 'oikotie-housingcompanies-batch.rng'
+OIKOTIE_APARTMENTS_BATCH_SCHEMA = "oikotie-apartments-batch.rng"
+OIKOTIE_APARTMENTS_UPDATE_SCHEMA = "oikotie-apartments-update.rng"
+OIKOTIE_HOUSINGCOMPANIES_BATCH_SCHEMA = "oikotie-housingcompanies-batch.rng"
