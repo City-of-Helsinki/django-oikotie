@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# Schema files
+django-oikotie/schemas
+
 # Distribution / packaging
 .Python
 build/

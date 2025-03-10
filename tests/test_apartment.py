@@ -442,7 +442,6 @@ def test__apartment__complete_xml_serialization():
         city_plan_pictures=[cpp1, cpp2],
         floor_location=fl,
         balcony=bal,
-        has_terrace=False,
         cellar=True,
         living_area=la,
         total_area=ta,
@@ -547,7 +546,6 @@ def test__apartment__complete_xml_serialization():
         f"  <RoomTypes>{obj.room_types}</RoomTypes>\n"
         f"  <OtherSpaceDescription>{obj.other_space_description}</OtherSpaceDescription>\n"
         f'  <Balcony value="E">{bal.description}</Balcony>\n'
-        f"  <HasTerrace>E</HasTerrace>\n"
         f"  <Terrace>{obj.terrace}</Terrace>\n"
         f"  <DirectionOfWindows>{obj.direction_of_windows}</DirectionOfWindows>\n"
         f"  <View>{obj.view}</View>\n"

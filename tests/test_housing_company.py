@@ -116,15 +116,13 @@ def test__construction_details__complete_xml_serialization():
 
 def test__coordinates__xml_serialization():
     obj = CoordinatesFactory(
-        latitude=12.3456789,
-        longitude=12.3456789,
+        x=12.3456789,
+        y=12.3456789,
     )
     xml = obj_to_xml_str(obj)
+
     assert xml == (
-        "<coordinates>\n"
-        "  <latitude>12.34567</latitude>\n"
-        "  <longitude>12.34567</longitude>\n"
-        "</coordinates>\n"
+        "<coordinates>\n" "  <x>12.34567</x>\n" "  <y>12.34567</y>\n" "</coordinates>\n"
     )
 
 
@@ -336,8 +334,8 @@ def test__housing_company__complete_xml_serialization():
         f"  </builder>\n"
         f"  <presentation-text>{obj.presentation_text}</presentation-text>\n"
         f"  <coordinates>\n"
-        f"    <latitude>{crd.format_latitude()}</latitude>\n"
-        f"    <longitude>{crd.format_longitude()}</longitude>\n"
+        f"    <x>{crd.format_x()}</x>\n"
+        f"    <y>{crd.format_y()}</y>\n"
         f"  </coordinates>\n"
         f"  <construction-details>\n"
         f"    <construction-complete>{yes_no_bool(cd.construction_complete)}</construction-complete>\n"
