@@ -1096,7 +1096,7 @@ class Apartment(XMLModel):
         return self.title[:150]
 
     def format_description(self) -> str:
-        return self.description[:2000]
+        return self.description[:12000]
 
     def format_supplementary_information(self) -> str:
         return self.supplementary_information[:2000]
